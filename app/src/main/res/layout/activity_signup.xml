@@ -22,8 +22,17 @@
         android:layout_centerInParent="true"/>
 
     <EditText
-        android:id="@+id/et_signup_password"
+        android:id="@+id/et_signup_username"
         android:layout_below="@+id/et_signup_email"
+        android:hint="Username"
+        android:textSize="20sp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+    <EditText
+        android:id="@+id/et_signup_password"
+        android:layout_below="@+id/et_signup_username"
         android:hint="Password"
         android:textSize="20sp"
         android:layout_width="300dp"

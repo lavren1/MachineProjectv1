@@ -87,7 +87,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        //todo gawa progress bar
+        //todo create progress bar/dialog
         mAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -95,11 +95,17 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                         if(task.isSuccessful()){
                             Log.d(TAG, "create user with email: "+task.isSuccessful());
                             Toast.makeText(getApplicationContext(), "User Registered Successfully",
-                                    Toast.LENGTH_SHORT).show(); //todo palitan toast 
+                                    Toast.LENGTH_SHORT).show(); //todo change toast
+                            //todo progress dialog
                             createNewUser(task.getResult().getUser());
+                            finish();
+                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                            }
+                            //todo error message
+
                         }
-                    }
-                });
+                    });
+
 
 
     }

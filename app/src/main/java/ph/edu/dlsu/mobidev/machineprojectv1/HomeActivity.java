@@ -19,6 +19,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth mAuth;
 
     private Button btnLogOut;
+    private Button btnAddGoal;
     private TextView tvUser;
 
     @Override
@@ -36,24 +37,31 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseUser user = mAuth.getCurrentUser();
 
         btnLogOut = (Button) findViewById(R.id.btn_log_out);
+        btnAddGoal = (Button) findViewById(R.id.btn_to_add_goal);
         tvUser = (TextView) findViewById(R.id.tv_user);
 
 
         tvUser.setText("Hello "+user.getEmail());
         btnLogOut.setOnClickListener(this);
+        btnAddGoal.setOnClickListener(this);
 
 
     }
 
     @Override
     public void onClick(View v){
-    switch(v.getId()){
-        case R.id.btn_log_out:
-            mAuth.signOut();
-            finish();
-            startActivity(new Intent(this, LoginActivity.class));
-            break;
-    }
+        switch(v.getId()){
+            case R.id.btn_log_out:
+                mAuth.signOut();
+                finish();
+                startActivity(new Intent(this, LoginActivity.class));
+                break;
+            case R.id.btn_to_add_goal:
+                finish();
+                startActivity(new Intent(this, GoalActivity.class));
+                break;
+        }
+
     }
 
 }

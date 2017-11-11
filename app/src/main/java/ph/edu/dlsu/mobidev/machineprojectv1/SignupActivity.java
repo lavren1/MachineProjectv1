@@ -44,7 +44,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_signup);
 
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         signup_email = (EditText) findViewById(R.id.et_signup_email);
         signup_password = (EditText) findViewById(R.id.et_signup_password);

@@ -23,5 +23,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/btn_add_goal"
         android:text="Add Goal"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_view_goal"
+        android:text="View Goals"/>
 
 </LinearLayout>

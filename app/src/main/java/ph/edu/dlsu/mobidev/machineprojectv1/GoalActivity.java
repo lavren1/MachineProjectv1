@@ -83,12 +83,13 @@ public class GoalActivity extends AppCompatActivity implements View.OnClickListe
                 FirebaseUser user = mAuth.getCurrentUser();
 
                 String goalKey = newGoalRef.getKey();
-                Key key = new Key(goalKey);
                 Goal goal = new Goal(title, description, timestamp, username, goalKey);
 
                 newGoalRef.setValue(new Goal(title, description, timestamp, username));
 
                 mDatabase.child("users").child(user.getUid()).child("goals").push().setValue(goal);
+
+                Log.d("Test", username + ": new goal added");
 
                 //todo change toast
                 Toast.makeText(getApplicationContext(), "Goal Added!", Toast.LENGTH_SHORT).show();

@@ -3,6 +3,7 @@ package ph.edu.dlsu.mobidev.machineprojectv1;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,10 +11,15 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Noel Campos on 11/12/2017.
@@ -24,6 +30,7 @@ public class GoalActivity extends AppCompatActivity implements View.OnClickListe
     DatabaseReference mDatabase;
     EditText etGoalTitle, etGoalDesc;
     Button btnAddGoal;
+    //List<User> tempList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +38,7 @@ public class GoalActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_goal);
 
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         if(mAuth.getCurrentUser() == null){ //no user logged in
             finish();
@@ -43,6 +50,8 @@ public class GoalActivity extends AppCompatActivity implements View.OnClickListe
         btnAddGoal = (Button) findViewById(R.id.btn_add_goal);
 
         btnAddGoal.setOnClickListener(this);
+
+
     }
 
     @Override
@@ -53,13 +62,50 @@ public class GoalActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+    public void saveGoal(FirebaseUser user){
+        final String title = etGoalTitle.getText().toString().trim();
+        final String description = etGoalDesc.getText().toString().trim();
+        final Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+        FirebaseDatabase ref = FirebaseDatabase.getInstance();
+
+        final DatabaseReference userRef = ref.getReference("users").child(user.getUid()).child("username");
+        final List<User> tempList = new ArrayList<>();
+
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String username = dataSnapshot.getValue(String.class);
+
+                DatabaseReference goalsRef = mDatabase.child("goals");
+                DatabaseReference newGoalRef = goalsRef.push();
+
+                FirebaseUser user = mAuth.getCurrentUser();
+
+                String goalKey = newGoalRef.getKey();
+                Key key = new Key(goalKey);
+
+                newGoalRef.setValue(new Goal(title, description, timestamp, username));
+
+                mDatabase.child("users").child(user.getUid()).child("goals").setValue(key);
+
+                //todo change toast
+                Toast.makeText(getApplicationContext(), "Goal Added!", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
+    }
 
     public void createGoal(){
         FirebaseUser user = mAuth.getCurrentUser();
-
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String title = etGoalTitle.getText().toString().trim();
-        String description = etGoalDesc.getText().toString().trim();
 
         if(title.isEmpty()){
             etGoalTitle.setError("Title is required");
@@ -67,16 +113,12 @@ public class GoalActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        Goal goal = new Goal(title, description, timestamp);
-
-        mDatabase.child(user.getUid()).child("goals").setValue(goal);
-
-        //todo change toast
-        Toast.makeText(this, "Goal Added!", Toast.LENGTH_LONG).show();
+        saveGoal(user);
 
     }
 
     public void showGoals(){
+        //show goals
 
     }
 }

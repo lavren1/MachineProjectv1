@@ -10,11 +10,30 @@ public class Goal {
     String title;
     String description;
     Timestamp timestamp;
+    String username;
+    String goalId;
 
-    public Goal(String title, String description, Timestamp timestamp) {
+    public String getGoalId() {
+        return goalId;
+    }
+
+    public void setGoalId(String goalId) {
+        this.goalId = goalId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Goal(String title, String description, Timestamp timestamp, String username) {
         this.title = title;
         this.description = description;
         this.timestamp = timestamp;
+        this.username = username;
     }
 
     public Goal(){}

@@ -1,5 +1,7 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
+import java.util.ArrayList;
+
 /**
  * Created by Noel Campos on 11/10/2017.
  */

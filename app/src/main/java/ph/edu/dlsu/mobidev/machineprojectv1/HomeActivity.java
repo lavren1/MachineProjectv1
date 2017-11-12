@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 /**
@@ -18,9 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth mAuth;
 
-    private Button btnLogOut;
-    private Button btnAddGoal;
-    private TextView tvUser;
+    Button btnAddGoal, btnLogOut, btnDelete;
+    TextView tvUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -38,14 +39,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         btnLogOut = (Button) findViewById(R.id.btn_log_out);
         btnAddGoal = (Button) findViewById(R.id.btn_to_add_goal);
+        btnDelete = (Button) findViewById(R.id.btn_delete_all);
         tvUser = (TextView) findViewById(R.id.tv_user);
 
 
         tvUser.setText("Hello "+user.getEmail());
         btnLogOut.setOnClickListener(this);
         btnAddGoal.setOnClickListener(this);
+        btnDelete.setOnClickListener(this);
 
+    }
+    public void deleteAllData(){ //for dev
+        DatabaseReference usernode = FirebaseDatabase.getInstance().getReference().getRoot().child("users");
+        DatabaseReference goalnode = FirebaseDatabase.getInstance().getReference().getRoot().child("goals");
 
+        usernode.setValue(null);
+        goalnode.setValue(null);
     }
 
     @Override
@@ -60,6 +69,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 startActivity(new Intent(this, GoalActivity.class));
                 break;
+            case R.id.btn_delete_all:
+                deleteAllData();
         }
 
     }

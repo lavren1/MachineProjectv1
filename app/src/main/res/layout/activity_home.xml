@@ -20,5 +20,10 @@
         android:layout_height="wrap_content"
         android:text="Add Goal"
         android:id="@+id/btn_to_add_goal"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_delete_all"
+        android:text="delete all data(firebase)"/>
 
 </LinearLayout>

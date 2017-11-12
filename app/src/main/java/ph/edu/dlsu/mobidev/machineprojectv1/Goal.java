@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class Goal {
     String title;
     String description;
-    Timestamp timestamp;
+    ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp;
     String username;
     String goal_id;
 
@@ -29,7 +29,7 @@ public class Goal {
         this.username = username;
     }
 
-    public Goal(String title, String description, Timestamp timestamp, String username, String goal_id) {
+    public Goal(String title, String description, ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp, String username, String goal_id) {
         this.title = title;
         this.description = description;
         this.timestamp = timestamp;
@@ -37,13 +37,17 @@ public class Goal {
         this.goal_id = goal_id;
     }
 
-    public Goal(String title, String description, Timestamp timestamp, String username) {
+    public Goal(String title, String description, ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp, String username) {
         this.title = title;
         this.description = description;
         this.timestamp = timestamp;
         this.username = username;
     }
 
+    public Goal(String title, String description){
+        this.title = title;
+        this.description = description;
+    }
     public Goal(){}
 
     public String getTitle() {
@@ -66,7 +70,7 @@ public class Goal {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 }

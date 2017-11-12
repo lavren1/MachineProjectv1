@@ -1,4 +1,4 @@
-package com.example.mobidev.machineproject;
+package ph.edu.dlsu.mobidev.machineprojectv1;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

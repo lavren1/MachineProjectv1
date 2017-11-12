@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,11 +15,11 @@ import java.util.List;
  */
 
 public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.ViewHolder> {
-    
-    private List<Goal> goalItems;
+
+    private ArrayList<Goal> goalItems;
     private Context context;
 
-    public GoalAdapter(List<Goal> goalItems, Context context) {
+    public GoalAdapter(ArrayList<Goal> goalItems, Context context) {
         this.goalItems = goalItems;
         this.context = context;
     }

@@ -65,12 +65,12 @@ public class GoalActivity extends AppCompatActivity implements View.OnClickListe
     public void saveGoal(FirebaseUser user){
         final String title = etGoalTitle.getText().toString().trim();
         final String description = etGoalDesc.getText().toString().trim();
-        final Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        final ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp
+                = new ph.edu.dlsu.mobidev.machineprojectv1.Timestamp(System.currentTimeMillis());
 
         FirebaseDatabase ref = FirebaseDatabase.getInstance();
 
         final DatabaseReference userRef = ref.getReference("users").child(user.getUid()).child("username");
-        final List<User> tempList = new ArrayList<>();
 
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -116,11 +116,6 @@ public class GoalActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         saveGoal(user);
-
-    }
-
-    public void showGoals(){
-        //show goals
 
     }
 }

@@ -1,5 +1,8 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
+import android.support.design.widget.TabLayout;
+import android.util.Log;
+import android.support.v4.view.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth mAuth;
-
+    private static final String TAG = "MainActivity";
+    private ViewPager mViewPager;
+    private SectionsPageAdapter mSectionsPageAdapter;
     Button btnAddGoal, btnLogOut, btnDelete;
     TextView tvUser;
 
@@ -29,7 +34,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_home);
 
         mAuth = FirebaseAuth.getInstance();
+        Log.d(TAG, "onCreate: Starting.");
 
+        mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        setupViewPager(mViewPager);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
+        
         if(mAuth.getCurrentUser() == null){ //no user logged in
             finish();
             startActivity(new Intent(this, LoginActivity.class));
@@ -73,6 +86,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 deleteAllData();
         }
 
+    }
+    
+    private void setupViewPager(ViewPager viewPager){
+        SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
+        adapter.addFragment(new FeedsFragment(), "Feed");
+        adapter.addFragment(new GoalsFragment(), "Goals");
+        adapter.addFragment(new AchievementsFragment(), "Achievement");
+        viewPager.setAdapter(adapter);
     }
 
 }

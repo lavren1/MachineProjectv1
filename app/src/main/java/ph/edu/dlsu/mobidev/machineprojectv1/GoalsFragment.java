@@ -1,6 +1,7 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.github.fabtransitionactivity.SheetLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,9 +41,9 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mFirebaseDB;
-    private EditText etGoalTitle, etGoalDesc;
-    private Button btnAddGoal;
     private RecyclerView rvGoals;
+    private FloatingActionButton fabAddGoal;
+    private SheetLayout mSheetLayout;
 
     @Nullable
     @Override
@@ -61,9 +63,8 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         rvGoals = view.findViewById(R.id.rv_goals);
         rvGoals.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext()));
 
-        btnAddGoal = view.findViewById(R.id.btn_to_add_goal);
-
-        btnAddGoal.setOnClickListener(this);
+        fabAddGoal = view.findViewById(R.id.fab_add_goal);
+        fabAddGoal.setOnClickListener(this);
 
         //firebase recycler view
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("goals");
@@ -84,71 +85,11 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btn_add_goal:
-                createGoal();
+            case R.id.fab_add_goal:
+                mSheetLayout.expandFab();
                 break;
         }
+        //todo dialog na nga lang
     }
 
-    public void saveGoal(FirebaseUser user){
-        final String title = etGoalTitle.getText().toString().trim();
-        final String description = etGoalDesc.getText().toString().trim();
-        final ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp = new ph.edu.dlsu.mobidev.machineprojectv1.Timestamp(System.currentTimeMillis());
-
-        FirebaseDatabase ref = FirebaseDatabase.getInstance();
-
-        final DatabaseReference userRef = ref.getReference("users").child(user.getUid()).child("username");
-        final List<User> tempList = new ArrayList<>();
-
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String username = dataSnapshot.getValue(String.class);
-
-                DatabaseReference goalsRef = mFirebaseDB.child("goals");
-                DatabaseReference newGoalRef = goalsRef.push();
-
-                FirebaseUser user = mAuth.getCurrentUser();
-
-                String goalKey = newGoalRef.getKey();
-                Goal goal = new Goal(title, description, timestamp, username, goalKey);
-
-                newGoalRef.setValue(new Goal(title, description, timestamp, username));
-
-                mFirebaseDB.child("users").child(user.getUid()).child("goals").push().setValue(goal);
-
-                Log.d("Test", username + ": new goal added");
-
-                //todo change toast
-                Toast.makeText(getContext().getApplicationContext(), "Goal Added!", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-        });
-
-    }
-
-    public void createGoal(){
-        FirebaseUser user = mAuth.getCurrentUser();
-        String title = etGoalTitle.getText().toString().trim();
-
-        if(title.isEmpty()){
-            etGoalTitle.setError("Title is required");
-            etGoalTitle.requestFocus();
-            return;
-        }
-
-        saveGoal(user);
-
-    }
-
-    public void showGoals(){
-        //show goals
-
-    }
 }

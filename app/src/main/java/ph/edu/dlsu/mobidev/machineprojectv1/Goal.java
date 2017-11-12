@@ -66,7 +66,7 @@ public class Goal {
         this.description = description;
     }
 
-    public Timestamp getTimestamp() {
+    public ph.edu.dlsu.mobidev.machineprojectv1.Timestamp getTimestamp() {
         return timestamp;
     }
 

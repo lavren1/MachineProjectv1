@@ -17,9 +17,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Noel Campos on 11/12/2017.
@@ -30,7 +27,6 @@ public class GoalActivity extends AppCompatActivity implements View.OnClickListe
     DatabaseReference mDatabase;
     EditText etGoalTitle, etGoalDesc;
     Button btnAddGoal;
-    //List<User> tempList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

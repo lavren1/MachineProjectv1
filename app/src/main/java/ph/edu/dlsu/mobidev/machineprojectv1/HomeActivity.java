@@ -20,13 +20,10 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by Noel Campos on 11/11/2017.
  */
 
-public class HomeActivity extends AppCompatActivity{
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth mAuth;
     private static final String TAG = "MainActivity";
     private ViewPager mViewPager;
-    private SectionsPageAdapter mSectionsPageAdapter;
-    Button btnAddGoal, btnLogOut, btnDelete;
-    TextView tvUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -36,16 +33,40 @@ public class HomeActivity extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance();
         Log.d(TAG, "onCreate: Starting.");
 
-        mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-        
+
         if(mAuth.getCurrentUser() == null){ //no user logged in
             finish();
             startActivity(new Intent(this, LoginActivity.class));
+        }
+
+    }
+    public void deleteAllData(){ //for dev
+        DatabaseReference usernode = FirebaseDatabase.getInstance().getReference().getRoot().child("users");
+        DatabaseReference goalnode = FirebaseDatabase.getInstance().getReference().getRoot().child("goals");
+
+        usernode.setValue(null);
+        goalnode.setValue(null);
+    }
+
+    @Override
+    public void onClick(View v){
+        switch(v.getId()){
+            case R.id.btn_log_out:
+                mAuth.signOut();
+                finish();
+                startActivity(new Intent(this, LoginActivity.class));
+                break;
+            case R.id.btn_to_add_goal:
+                finish();
+                startActivity(new Intent(this, GoalActivity.class));
+                break;
+            case R.id.btn_delete_all:
+                deleteAllData();
         }
 
     }

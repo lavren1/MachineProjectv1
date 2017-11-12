@@ -24,28 +24,16 @@ public class FeedsFragment extends Fragment implements View.OnClickListener{
     private static final String TAG = "FeedsFragment";
 
     private FirebaseAuth mAuth;
-    Button btnAddGoal, btnLogOut, btnDelete;
-    TextView tvUser;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.activity_home, container, false);
+        View view = inflater.inflate(R.layout.feed, container, false);
 
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser user = mAuth.getCurrentUser();
 
-        btnLogOut = (Button) view.findViewById(R.id.btn_log_out);
-        btnAddGoal = (Button) view.findViewById(R.id.btn_to_add_goal);
-        btnDelete = (Button) view.findViewById(R.id.btn_delete_all);
-        tvUser = (TextView) view.findViewById(R.id.tv_user);
-
-
-        tvUser.setText("Hello "+user.getEmail());
-        btnLogOut.setOnClickListener(this);
-        btnAddGoal.setOnClickListener(this);
-        btnDelete.setOnClickListener(this);
 
         return view;
     }

@@ -11,14 +11,14 @@ public class Goal {
     String description;
     Timestamp timestamp;
     String username;
-    String goalId;
+    String goal_id;
 
     public String getGoalId() {
-        return goalId;
+        return goal_id;
     }
 
-    public void setGoalId(String goalId) {
-        this.goalId = goalId;
+    public void setGoalId(String goal_id) {
+        this.goal_id = goal_id;
     }
 
     public String getUsername() {
@@ -27,6 +27,14 @@ public class Goal {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Goal(String title, String description, Timestamp timestamp, String username, String goal_id) {
+        this.title = title;
+        this.description = description;
+        this.timestamp = timestamp;
+        this.username = username;
+        this.goal_id = goal_id;
     }
 
     public Goal(String title, String description, Timestamp timestamp, String username) {

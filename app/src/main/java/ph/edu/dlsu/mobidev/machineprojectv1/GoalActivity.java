@@ -84,10 +84,11 @@ public class GoalActivity extends AppCompatActivity implements View.OnClickListe
 
                 String goalKey = newGoalRef.getKey();
                 Key key = new Key(goalKey);
+                Goal goal = new Goal(title, description, timestamp, username, goalKey);
 
                 newGoalRef.setValue(new Goal(title, description, timestamp, username));
 
-                mDatabase.child("users").child(user.getUid()).child("goals").setValue(key);
+                mDatabase.child("users").child(user.getUid()).child("goals").push().setValue(goal);
 
                 //todo change toast
                 Toast.makeText(getApplicationContext(), "Goal Added!", Toast.LENGTH_SHORT).show();

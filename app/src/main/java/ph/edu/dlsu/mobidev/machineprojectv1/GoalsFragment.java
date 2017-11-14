@@ -26,6 +26,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Nikko on 11/11/2017.
  */
@@ -69,6 +72,14 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDescription());
                 viewHolder.setTimestamp(model.getTimestamp());
+                final String goalId = model.getGoalId();
+
+                viewHolder.btnEditGoal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showEditGoalDialog(goalId);
+                    }
+                });
             }
         };
         rvGoals.setAdapter(adapter);
@@ -83,9 +94,36 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                 showAddGoalDialog();
                 break;
         }
-        //todo dialog na nga lang
     }
+    protected void showEditGoalDialog(final String goalId){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        builder.setView(inflater.inflate(R.layout.add_goal_dialog, null))
+                .setPositiveButton("Add Goal", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Dialog f = (Dialog) dialog;
+                        EditText title, description;
+
+                        title = f.findViewById(R.id.form_goal_title);
+                        description  = f.findViewById(R.id.form_goal_desc);
+
+                        String goalTitle = title.getText().toString().trim();
+                        String goalDesc = description.getText().toString().trim();
+
+                        editGoal(goalTitle, goalDesc, goalId);
+
+
+                    }
+                })
+                .setNegativeButton("Cancel",  new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builder.create().show();
+    }
     protected void showAddGoalDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
@@ -130,17 +168,17 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String username = dataSnapshot.getValue(String.class);
 
-                DatabaseReference goalsRef = FirebaseDatabase.getInstance().getReference().child("goals");
-                DatabaseReference newGoalRef = goalsRef.push();
-
                 FirebaseUser user = mAuth.getCurrentUser();
 
-                String goalKey = newGoalRef.getKey();
+                DatabaseReference userGoalRef = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("goals").push();
+                String goalKey = userGoalRef.getKey();
                 Goal goal = new Goal(title, desc, timestamp, username, goalKey);
-
-                newGoalRef.setValue(new Goal(title, desc, timestamp, username));
-
+                userGoalRef.setValue(goal);
+                /*
+                FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("goals").push();
                 FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("goals").push().setValue(goal);
+
+                */
 
                 Log.d("Test", username + ": new goal added");
 
@@ -168,6 +206,21 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         else
         saveGoal(user, title, desc);
 
+    }
+
+    public void editGoal(String title, String desc, String goalId){
+        if(title.isEmpty()){
+            //todo cancel
+        }
+        else{
+            FirebaseUser user = mAuth.getCurrentUser();
+            Map<String, Object> goalUpdates = new HashMap<>();
+            goalUpdates.put("description", desc);
+            goalUpdates.put("title", title);
+            DatabaseReference goalRef = FirebaseDatabase.getInstance().getReference()
+                    .child("users").child(user.getUid()).child("goals").child(goalId);
+            goalRef.updateChildren(goalUpdates);
+        }
     }
 
 }

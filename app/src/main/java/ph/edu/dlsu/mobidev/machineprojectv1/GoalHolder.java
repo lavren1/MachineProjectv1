@@ -3,6 +3,7 @@ package ph.edu.dlsu.mobidev.machineprojectv1;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.sql.Date;
@@ -17,6 +18,7 @@ public class GoalHolder extends ViewHolder{
     private final TextView tvGoalTitle;
     private final  TextView tvGoalDesc;
     private final TextView tvGoalDateTime;
+    public final Button btnEditGoal;
 
     public GoalHolder(View itemView) {
         super(itemView);
@@ -24,6 +26,8 @@ public class GoalHolder extends ViewHolder{
         tvGoalTitle = itemView.findViewById(R.id.tv_goal_title);
         tvGoalDesc = itemView.findViewById(R.id.tv_goal_desc);
         tvGoalDateTime = itemView.findViewById(R.id.tv_goal_ts);
+        btnEditGoal = itemView.findViewById(R.id.btn_edit_goal);
+
     }
 
     public void setTitle (String t){

@@ -1,12 +1,16 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -174,16 +179,10 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                 String goalKey = userGoalRef.getKey();
                 Goal goal = new Goal(title, desc, timestamp, username, goalKey);
                 userGoalRef.setValue(goal);
-                /*
-                FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("goals").push();
-                FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("goals").push().setValue(goal);
-
-                */
 
                 Log.d("Test", username + ": new goal added");
 
-                //todo change toast
-                Toast.makeText(getActivity(), "Goal Added!", Toast.LENGTH_SHORT).show();
+                showSnackbar("Added Goal");
 
             }
 
@@ -194,6 +193,18 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
 
         });
 
+    }
+    public void showSnackbar(String message){
+        //snackbar
+        View view = getActivity().findViewById(android.R.id.content);
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
+        snackbar.setActionTextColor(Color.WHITE);
+        View snackView = snackbar.getView();
+        //TextView textView = snackView.findViewById(android.support.design.R.id.snackbar_text);
+
+        snackView.setBackgroundColor(Color.parseColor("#3F51B5"));
+
+        Snackbar.make(view, "Goal Added", Snackbar.LENGTH_LONG).show();
     }
 
     public void createGoal(String title, String desc){
@@ -220,6 +231,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
             DatabaseReference goalRef = FirebaseDatabase.getInstance().getReference()
                     .child("users").child(user.getUid()).child("goals").child(goalId);
             goalRef.updateChildren(goalUpdates);
+            showSnackbar("Edited Goal");
         }
     }
 

@@ -23,6 +23,6 @@
         android:layout_marginRight="16dp"
         app:borderWidth="0dp"
         app:fabSize="normal"
-       />
+        />
 
 </RelativeLayout>

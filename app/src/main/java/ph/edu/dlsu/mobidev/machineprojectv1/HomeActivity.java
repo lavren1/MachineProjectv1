@@ -61,10 +61,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
-            case R.id.btn_to_add_goal:
-                finish();
-                startActivity(new Intent(this, GoalActivity.class));
-                break;
             case R.id.btn_delete_all:
                 deleteAllData();
         }

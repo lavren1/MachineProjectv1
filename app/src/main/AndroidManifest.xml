@@ -18,7 +18,6 @@
         </activity>
         <activity android:name=".SignupActivity"></activity>
         <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".GoalActivity"></activity>
     </application>
 
 </manifest>

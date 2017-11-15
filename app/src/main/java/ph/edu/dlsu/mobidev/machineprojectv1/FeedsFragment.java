@@ -57,33 +57,6 @@ public class FeedsFragment extends Fragment {
         };
         rvFeed.setAdapter(feedAdapter);
 
-<<<<<<< HEAD
-    @Override
-    public void onClick(View v){
-        switch(v.getId()){
-            /*
-            case R.id.btn_log_out:
-                mAuth.signOut();
-                startActivity(new Intent(getContext().getApplicationContext(), LoginActivity.class));
-                break;
-                */
-            case R.id.btn_delete_all:
-                deleteAllData();
-                break;
-        }
-=======
-        logoutbutton = (Button) view.findViewById(R.id.logout_feed);
-        logoutbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent gobacktosquareone = new Intent(getActivity(), LoginActivity.class);
-                startActivity(gobacktosquareone);
-                getActivity().finish();
-            }
-        });
->>>>>>> 30c0e1d39966a821987196123f7a66318b9bf71d
-
         return view;
     }
 }

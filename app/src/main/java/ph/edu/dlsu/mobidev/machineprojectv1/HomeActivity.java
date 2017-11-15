@@ -104,9 +104,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 //gets username
                 String username = dataSnapshot.getValue(String.class);
 
-                //makes the achievements child directly under the root
+                //makes the activity_view_achievements child directly under the root
                 FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-                DatabaseReference achievementsRef = mDatabase.getReference().child("achievements");
+                DatabaseReference achievementsRef = mDatabase.getReference().child("activity_view_achievements");
                 //instantiates an achievement with an ID via push
                 DatabaseReference newAchievementsRef = achievementsRef.push();
 
@@ -120,7 +120,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 newAchievementsRef.setValue(new Achievement(title, description, timestamp, username));
 
                 //under users naman to
-                mDatabase.getReference().child("users").child(user.getUid()).child("achievements").child(achievementKey).setValue(achievement);
+                mDatabase.getReference().child("users").child(user.getUid()).child("activity_view_achievements").child(achievementKey).setValue(achievement);
 
                 Toast.makeText(getApplicationContext(), "Achievement Added!", Toast.LENGTH_SHORT).show();
             }

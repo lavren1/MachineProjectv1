@@ -66,7 +66,9 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         rvGoals.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext()));
 
         fabAddGoal = view.findViewById(R.id.fab_add_goal);
+        fabAddGoal.setImageResource(R.drawable.ic_add_black_24dp);
         fabAddGoal.setOnClickListener(this);
+
 
         //firebase recycler view
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("goals");

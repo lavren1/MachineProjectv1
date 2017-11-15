@@ -49,10 +49,12 @@ public class FeedsFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v){
         switch(v.getId()){
+            /*
             case R.id.btn_log_out:
                 mAuth.signOut();
                 startActivity(new Intent(getContext().getApplicationContext(), LoginActivity.class));
                 break;
+                */
             case R.id.btn_delete_all:
                 deleteAllData();
                 break;

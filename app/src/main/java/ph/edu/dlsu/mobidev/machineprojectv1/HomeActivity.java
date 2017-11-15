@@ -61,11 +61,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v){
         switch(v.getId()){
+            /*
             case R.id.btn_log_out:
                 mAuth.signOut();
                 finish();
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
+                */
             case R.id.btn_delete_all:
                 deleteAllData();
         }

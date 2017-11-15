@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
  * Created by Nikko on 11/15/2017.
  */
 
+
 public class FeedHolder extends RecyclerView.ViewHolder {
 
     private final TextView tvFeedAchievementOwner;

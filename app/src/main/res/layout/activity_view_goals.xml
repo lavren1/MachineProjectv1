@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rv_goals"
-        android:layout_below="@id/btn_to_add_goal">
+        >
 
     </android.support.v7.widget.RecyclerView>
 

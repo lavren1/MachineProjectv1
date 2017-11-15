@@ -48,6 +48,7 @@ public class AchievementsFragment extends Fragment {
         etAchieveTitle = (EditText) view.findViewById(R.id.form_achTitle);
         etAchieveDescription = (EditText) view.findViewById(R.id.form_achDesc);
         fabAddAchievement = (FloatingActionButton) view.findViewById(R.id.fab_add_achievement);
+        fabAddAchievement.setImageResource(R.drawable.ic_add_black_24dp);
 
         //firebase recycler view
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("activity_view_achievements");

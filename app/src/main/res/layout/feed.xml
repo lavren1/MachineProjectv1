@@ -11,12 +11,15 @@
         android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
 
+<<<<<<< HEAD
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="wip"
         android:layout_below="@id/world_feed"
         android:id="@+id/filler"/>
+=======
+>>>>>>> 30c0e1d39966a821987196123f7a66318b9bf71d
 
 
 

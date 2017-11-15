@@ -1,4 +1,4 @@
-package com.example.mobidev.machineproject;
+package ph.edu.dlsu.mobidev.machineprojectv1;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -28,11 +28,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Array;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
@@ -40,7 +35,7 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 
 public class AchievementsFragment extends Fragment {
-    private static final String TAG = "FeedsFragment";
+    private static final String TAG = "AchievementsFragment";
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;

@@ -8,12 +8,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -77,13 +82,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     
     public void createAchievement(EditText aTitle, EditText aDesc){
 
-        etAchieveTitle = aTitle;
-        etAchieveDescription = aDesc;
+        EditText etAchieveTitle = aTitle;
+        EditText etAchieveDescription = aDesc;
 
         FirebaseUser user = mAuth.getCurrentUser();
         final String title = etAchieveTitle.getText().toString();
         final String description = etAchieveDescription.getText().toString();
-        final com.example.mobidev.machineproject.Timestamp timestamp = new com.example.mobidev.machineproject.Timestamp(System.currentTimeMillis());
+        final ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp = new ph.edu.dlsu.mobidev.machineprojectv1.Timestamp(System.currentTimeMillis());
 
         FirebaseDatabase ref = FirebaseDatabase.getInstance();
         DatabaseReference userRef = ref.getReference("users").child(user.getUid()).child("username");
@@ -93,7 +98,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             etAchieveTitle.requestFocus();
             return;
         }
-
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -101,6 +105,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 String username = dataSnapshot.getValue(String.class);
 
                 //makes the achievements child directly under the root
+                FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
                 DatabaseReference achievementsRef = mDatabase.getReference().child("achievements");
                 //instantiates an achievement with an ID via push
                 DatabaseReference newAchievementsRef = achievementsRef.push();
@@ -125,6 +130,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+
     }
 
 }

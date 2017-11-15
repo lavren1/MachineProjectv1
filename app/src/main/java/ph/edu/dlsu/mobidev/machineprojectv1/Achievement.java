@@ -1,4 +1,4 @@
-package com.example.mobidev.machineproject;
+package ph.edu.dlsu.mobidev.machineprojectv1;
 
 import java.sql.Timestamp;
 
@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class Achievement {
     String title;
     String description;
-    com.example.mobidev.machineproject.Timestamp timestamp;
+    ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp;
     String username;
     String achievement_id;
 
@@ -29,7 +29,7 @@ public class Achievement {
         this.username = username;
     }
 
-    public Achievement(String title, String description, com.example.mobidev.machineproject.Timestamp timestamp, String username, String achievement_id) {
+    public Achievement(String title, String description, ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp, String username, String achievement_id) {
         this.title = title;
         this.description = description;
         this.timestamp = timestamp;
@@ -37,7 +37,7 @@ public class Achievement {
         this.achievement_id = achievement_id;
     }
 
-    public Achievement(String title, String description, com.example.mobidev.machineproject.Timestamp timestamp, String username) {
+    public Achievement(String title, String description, ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp, String username) {
         this.title = title;
         this.description = description;
         this.timestamp = timestamp;
@@ -66,11 +66,11 @@ public class Achievement {
         this.description = description;
     }
 
-    public com.example.mobidev.machineproject.Timestamp getTimestamp() {
+    public ph.edu.dlsu.mobidev.machineprojectv1.Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(com.example.mobidev.machineproject.Timestamp timestamp) {
+    public void setTimestamp(ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 }

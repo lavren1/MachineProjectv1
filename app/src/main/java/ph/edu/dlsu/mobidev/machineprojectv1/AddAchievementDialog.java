@@ -1,4 +1,4 @@
-package com.example.mobidev.machineproject;
+package ph.edu.dlsu.mobidev.machineprojectv1;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -32,7 +32,7 @@ public class AddAchievementDialog extends DialogFragment {
                         aTitle = f.findViewById(R.id.form_achTitle);
                         aDesc = f.findViewById(R.id.form_achDesc);
 
-                        ((MainActivity)getActivity()).createAchievement(aTitle, aDesc);
+                        ((HomeActivity)getActivity()).createAchievement(aTitle, aDesc);
                         dialog.dismiss();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

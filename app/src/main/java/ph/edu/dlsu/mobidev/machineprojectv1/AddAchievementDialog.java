@@ -6,10 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.EditText;
 
 /**
@@ -22,7 +19,7 @@ public class AddAchievementDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        builder1.setView(inflater.inflate(R.layout.add_achievement_dialog_layout, null))
+        builder1.setView(inflater.inflate(R.layout.add_achievement_dialog, null))
                 .setTitle("Add Achievement")
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override

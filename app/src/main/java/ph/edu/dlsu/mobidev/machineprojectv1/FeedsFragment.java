@@ -1,4 +1,4 @@
-package com.example.mobidev.machineproject;
+package ph.edu.dlsu.mobidev.machineprojectv1;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,19 +34,19 @@ public class FeedsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.feed, container, false);
+        View view = inflater.inflate(R.layout.activity_view_feed, container, false);
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();
-        mFirebaseDB = FirebaseDatabase.getInstance().getReference("achievements");
+        mFirebaseDB = FirebaseDatabase.getInstance().getReference("activity_view_achievements");
 
         rvFeed = (RecyclerView) view.findViewById(R.id.world_feed);
         rvFeed.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext()));
 
         //firebase recycler view
-        DatabaseReference allAchRef = FirebaseDatabase.getInstance().getReference("achievements");
-        FirebaseRecyclerAdapter<Achievement, FeedHolder> feedAdapter = new FirebaseRecyclerAdapter<Achievement, FeedHolder>(Achievement.class, R.layout.feed_achievement_display, FeedHolder.class, allAchRef){
+        DatabaseReference allAchRef = FirebaseDatabase.getInstance().getReference("activity_view_achievements");
+        FirebaseRecyclerAdapter<Achievement, FeedHolder> feedAdapter = new FirebaseRecyclerAdapter<Achievement, FeedHolder>(Achievement.class, R.layout.item_feed, FeedHolder.class, allAchRef){
             @Override
             protected void populateViewHolder(FeedHolder viewHolder, Achievement model, int position) {
                 viewHolder.setOwner(model.getUsername());

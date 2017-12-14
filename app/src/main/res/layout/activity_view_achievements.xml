@@ -26,6 +26,7 @@
         android:layout_marginRight="16dp"
         app:borderWidth="0dp"
         app:fabSize="normal"
+        android:tint="@color/common_google_signin_btn_text_light"
         app:rippleColor="#ec5456" />
 
 </RelativeLayout>

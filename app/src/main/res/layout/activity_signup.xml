@@ -57,15 +57,16 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
-    
+
     <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
         android:id="@+id/progress_bar"
-        android:layout_centerInParent="true"
-        android:layout_margin="10dp"
+        android:indeterminate="true"
         android:visibility="gone"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:indeterminate="true"/>
+        android:layout_marginTop="-10dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/iv_app_logo"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 
 </RelativeLayout>

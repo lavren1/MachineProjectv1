@@ -22,7 +22,8 @@
         android:textSize="20sp"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"/>
 
     <EditText
         android:id="@+id/et_login_password"
@@ -52,13 +53,14 @@
         android:layout_marginBottom="20dp"/>
 
     <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
         android:id="@+id/progress_bar_login"
         android:indeterminate="true"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_centerInParent="true"
         android:visibility="gone"
-        android:layout_margin="10dp"/>
+        android:layout_marginTop="-10dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/iv_app_logo"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 
 </RelativeLayout>

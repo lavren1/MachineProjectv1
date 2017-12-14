@@ -56,7 +56,9 @@
         android:text="SIGN UP"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:textColor="#fff"
+        android:backgroundTint="@color/colorPrimary"/>
 
     <ProgressBar
         android:layout_width="300dp"

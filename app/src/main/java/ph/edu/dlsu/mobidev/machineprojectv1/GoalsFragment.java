@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,7 +73,8 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
 
         //firebase recycler view
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("goals");
-        FirebaseRecyclerAdapter<Goal, GoalHolder>adapter = new FirebaseRecyclerAdapter<Goal, GoalHolder>(Goal.class, R.layout.item_goal, GoalHolder.class, ref){
+        FirebaseRecyclerAdapter<Goal, GoalHolder>adapter = new FirebaseRecyclerAdapter<Goal, GoalHolder>
+                (Goal.class, R.layout.item_goal, GoalHolder.class, ref.orderByChild("timestamps")){
 
             @Override
             protected void populateViewHolder(GoalHolder viewHolder, Goal model, int position) {
@@ -194,6 +196,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                 DatabaseReference userGoalRef = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("goals").push();
                 String goalKey = userGoalRef.getKey();
                 Goal goal = new Goal(title, desc, timestamp, username, goalKey);
+                goal.setTimestamps(-1 * new Date().getTime());
                 userGoalRef.setValue(goal);
 
                 Log.d("Test", username + ": new goal added");

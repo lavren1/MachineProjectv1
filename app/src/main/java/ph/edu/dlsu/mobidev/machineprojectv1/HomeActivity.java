@@ -133,7 +133,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 mDatabase.getReference().child("users").child(user.getUid()).child("activity_view_achievements").child(achievementKey).setValue(achievement);
 
                 //Toast.makeText(getApplicationContext(), "Achievement Added!", Toast.LENGTH_SHORT).show();
-                showSnackbar("Added Achievement!");
+                showSnackbar("Achievement Added!");
             }
 
             @Override

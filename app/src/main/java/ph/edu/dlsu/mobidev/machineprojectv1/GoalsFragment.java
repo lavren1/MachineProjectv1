@@ -212,15 +212,14 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
 
     }
     public void showSnackbar(String message){
-        //snackbar
         View view = getActivity().findViewById(android.R.id.content);
+        /*
         Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
         snackbar.setActionTextColor(Color.WHITE);
         View snackView = snackbar.getView();
         //TextView textView = snackView.findViewById(android.support.design.R.id.snackbar_text);
-
         snackView.setBackgroundColor(Color.parseColor("#3F51B5"));
-
+        */
         Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
 

@@ -54,7 +54,7 @@ public class FeedsFragment extends Fragment {
         FirebaseRecyclerAdapter<Achievement, FeedHolder> feedAdapter = new FirebaseRecyclerAdapter<Achievement, FeedHolder>
                 (Achievement.class, R.layout.item_feed, FeedHolder.class, allAchRef.orderByChild("timestamps")){
             @Override
-            protected void populateViewHolder(FeedHolder viewHolder, Achievement model, int position) {
+            protected void populateViewHolder(final FeedHolder viewHolder, Achievement model, int position) {
                 viewHolder.setOwner(model.getUsername());
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDescription());
@@ -64,6 +64,18 @@ public class FeedsFragment extends Fragment {
                 final DatabaseReference ref = getRef(position);
                 final String key = ref.getKey();
                 final int fposition = position;
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                if(model.pats.containsKey(user.getUid())){
+
+                } else{
+
+                }
+                if(model.mehs.containsKey(user.getUid())){
+
+                } else{
+
+                }
 
                 viewHolder.btnPat.setOnClickListener(new View.OnClickListener() {
                     @Override

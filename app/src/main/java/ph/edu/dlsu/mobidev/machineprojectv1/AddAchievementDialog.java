@@ -20,8 +20,7 @@ public class AddAchievementDialog extends DialogFragment {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         builder1.setView(inflater.inflate(R.layout.add_achievement_dialog, null))
-                .setTitle("Add Achievement")
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Add Achievement", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
                         Dialog f = (Dialog) dialog;

@@ -3,6 +3,7 @@ package ph.edu.dlsu.mobidev.machineprojectv1;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.sql.*;
@@ -21,8 +22,8 @@ public class FeedHolder extends RecyclerView.ViewHolder {
     private final TextView tvFeedAchievementDateTime;
     public final TextView tvPatCount;
     public final TextView tvMehCount;
-    public final Button btnPat;
-    public final Button btnMeh;
+    public final LinearLayout btnPat;
+    public final LinearLayout btnMeh;
 
     public FeedHolder(View itemView) {
         super(itemView);
@@ -60,5 +61,9 @@ public class FeedHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //TODO fix format
         tvFeedAchievementDateTime.setText(sdf.format(date));
+    }
+
+    public void setPatActive(){
+
     }
 }

@@ -27,10 +27,12 @@
 
                 <ImageView
                     android:id="@+id/btn_logoutMain"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/logoutwhite"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"/>
 
         </LinearLayout>
     </android.support.design.widget.AppBarLayout>

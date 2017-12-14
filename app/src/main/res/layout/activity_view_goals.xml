@@ -17,11 +17,7 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add_goal"
-<<<<<<< HEAD
-        android:src="@drawable/icon"
-=======
-        android:src="@drawable/addicon"                                                
->>>>>>> d62d424f5d6fd372578701d0636042911d4e3bfc
+        android:src="@drawable/addicon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

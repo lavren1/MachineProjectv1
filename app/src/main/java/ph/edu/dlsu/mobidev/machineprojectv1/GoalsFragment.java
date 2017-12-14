@@ -121,7 +121,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.add_goal_dialog, null))
-                .setPositiveButton("Add Goal", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Edit Goal", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Dialog f = (Dialog) dialog;
                         EditText title, description;

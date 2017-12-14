@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,6 +35,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth mAuth;
     private static final String TAG = "MainActivity";
     private ViewPager mViewPager;
+    private ImageView ivLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -55,6 +57,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
+        
+        ivLogout = (ImageView) findViewById(R.id.btn_logoutMain);
+        ivLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent gobacktosquareone = new Intent(getBaseContext(), LoginActivity.class);
+                startActivity(gobacktosquareone);
+                finish();
+            }
+        });
 
     }
     public void deleteAllData(){ //for dev

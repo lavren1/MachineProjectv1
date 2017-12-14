@@ -12,6 +12,7 @@ public class Goal {
     ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp;
     String username;
     String goal_id;
+    long timestamps;
 
     public String getGoalId() {
         return goal_id;
@@ -72,5 +73,13 @@ public class Goal {
 
     public void setTimestamp(ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public long getTimestamps() {
+        return timestamps;
+    }
+
+    public void setTimestamps(long timestamps) {
+        this.timestamps = timestamps;
     }
 }

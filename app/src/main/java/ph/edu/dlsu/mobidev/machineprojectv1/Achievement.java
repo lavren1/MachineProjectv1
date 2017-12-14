@@ -13,8 +13,8 @@ public class Achievement {
     ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp;
     String username;
     String achievement_id;
-    int patCount;
-    int mehCount;
+    int patCount = 0;
+    int mehCount = 0;
     Map<String, Boolean> pats = new HashMap<>();
     Map<String, Boolean> mehs = new HashMap<>();
     long timestamps;
@@ -63,6 +63,7 @@ public class Achievement {
         result.put("title", title);
         result.put("description", description);
         result.put("timestamp", timestamp);
+        result.put("timestamps", timestamps);
         result.put("username", username);
         result.put("patCount", patCount);
         result.put("pats", pats);

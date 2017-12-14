@@ -38,6 +38,28 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"/>
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pat"
+                android:id="@+id/btn_pat"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:id="@+id/tv_pat_count"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meh"
+                android:id="@+id/btn_meh"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:id="@+id/tv_meh_count"/>
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

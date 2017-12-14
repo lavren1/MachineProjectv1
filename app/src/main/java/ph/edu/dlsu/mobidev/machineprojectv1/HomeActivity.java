@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Date;
+import java.util.Map;
 
 
 /**
@@ -122,8 +123,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 String achievementKey = newAchievementsRef.getKey();
                 Achievement achievement = new Achievement(title, description, timestamp, username, achievementKey);
                 achievement.setTimestamps(-1 * new Date().getTime());
+                Map<String, Object> achievementValues = achievement.toMap();
                 //sets the value of the achievement under the root
-                newAchievementsRef.setValue(achievement);
+                newAchievementsRef.setValue(achievementValues);
 
                 //under users naman to
                 mDatabase.getReference().child("users").child(user.getUid()).child("activity_view_achievements").child(achievementKey).setValue(achievement);

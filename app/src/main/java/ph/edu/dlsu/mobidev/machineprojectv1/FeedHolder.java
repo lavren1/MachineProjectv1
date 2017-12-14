@@ -19,6 +19,10 @@ public class FeedHolder extends RecyclerView.ViewHolder {
     private final TextView tvFeedAchievementTitle;
     private final TextView tvFeedAchievementDesc;
     private final TextView tvFeedAchievementDateTime;
+    public final TextView tvPatCount;
+    public final TextView tvMehCount;
+    public final Button btnPat;
+    public final Button btnMeh;
 
     public FeedHolder(View itemView) {
         super(itemView);
@@ -27,6 +31,10 @@ public class FeedHolder extends RecyclerView.ViewHolder {
         tvFeedAchievementTitle = itemView.findViewById(R.id.tv_feedAchievement_title);
         tvFeedAchievementDesc = itemView.findViewById(R.id.tv_feedAchievement_desc);
         tvFeedAchievementDateTime = itemView.findViewById(R.id.tv_feedAchievement_ts);
+        tvPatCount = itemView.findViewById(R.id.tv_pat_count);
+        tvMehCount = itemView.findViewById(R.id.tv_meh_count);
+        btnPat = itemView.findViewById(R.id.btn_pat);
+        btnMeh = itemView.findViewById(R.id.btn_meh);
     }
 
     public void setOwner (String t) { tvFeedAchievementOwner.setText(t); }
@@ -39,9 +47,18 @@ public class FeedHolder extends RecyclerView.ViewHolder {
         tvFeedAchievementDesc.setText(t);
     }
 
+    public void setPat (int i){
+        tvPatCount.setText(String.valueOf(i));
+    }
+
+    public void setMeh (int i){
+        tvMehCount.setText(String.valueOf(i));
+    }
+
     public void setTimestamp (java.sql.Timestamp ts){
         Date date = new Date(ts.getTime());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //TODO fix format
         tvFeedAchievementDateTime.setText(sdf.format(date));
     }
 }

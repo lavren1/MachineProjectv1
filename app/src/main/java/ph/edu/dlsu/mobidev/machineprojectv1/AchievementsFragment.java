@@ -1,8 +1,10 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -110,9 +112,6 @@ public class AchievementsFragment extends Fragment {
     }
 
     private void onReactClick(DatabaseReference achRef){
-        achRef.runTransaction(new Transaction.Handler() {
 
-
-        });
     }
 }

@@ -1,11 +1,11 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
+import com.google.firebase.database.Exclude;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
-
-/**
- * Created by Nikko on 11/12/2017.
- */
+import java.util.HashMap;
+import java.util.Map;
 
 public class Achievement {
     String title;
@@ -13,8 +13,11 @@ public class Achievement {
     ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp;
     String username;
     String achievement_id;
-    int patsCount;
-    int mehsCount;
+    int patCount;
+    int mehCount;
+    Map<String, Boolean> pats = new HashMap<>();
+    Map<String, Boolean> mehs = new HashMap<>();
+    long timestamps;
 
     public String getAchievementId() {
         return achievement_id;
@@ -40,20 +43,34 @@ public class Achievement {
         this.achievement_id = achievement_id;
     }
 
-    public Achievement(String title, String description, ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp, String username, int pats, int mehs) {
+    public Achievement(String title, String description, ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp, String username) {
         this.title = title;
         this.description = description;
         this.timestamp = timestamp;
         this.username = username;
-        this.patsCount = pats;
-        this.mehsCount = mehs;
     }
 
     public Achievement(String title, String description){
         this.title = title;
         this.description = description;
     }
+
     public Achievement(){}
+
+    @Exclude
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("title", title);
+        result.put("description", description);
+        result.put("timestamp", timestamp);
+        result.put("username", username);
+        result.put("patCount", patCount);
+        result.put("pats", pats);
+        result.put("mehCount", mehCount);
+        result.put("mehs", mehs);
+
+        return result;
+    }
 
     public String getTitle() {
         return title;
@@ -79,21 +96,51 @@ public class Achievement {
         this.timestamp = timestamp;
     }
 
-    public int getPats() {
-        return patsCount;
+    public String getAchievement_id() {
+        return achievement_id;
     }
 
-    public void setPats(int pats) {
-        this.patsCount = pats;
+    public void setAchievement_id(String achievement_id) {
+        this.achievement_id = achievement_id;
     }
 
-    public int getMehs() {
-        return mehsCount;
+    public Map<String, Boolean> getPats() {
+        return pats;
     }
 
-    public void setMehs(int mehs) {
-        this.mehsCount = mehs;
+    public void setPats(Map<String, Boolean> pats) {
+        this.pats = pats;
     }
 
+    public Map<String, Boolean> getMehs() {
+        return mehs;
+    }
 
+    public void setMehs(Map<String, Boolean> mehs) {
+        this.mehs = mehs;
+    }
+
+    public int getPatCount() {
+        return patCount;
+    }
+
+    public void setPatCount(int patCount) {
+        this.patCount = patCount;
+    }
+
+    public int getMehCount() {
+        return mehCount;
+    }
+
+    public void setMehCount(int mehCount) {
+        this.mehCount = mehCount;
+    }
+
+    public long getTimestamps() {
+        return timestamps;
+    }
+
+    public void setTimestamps(long timestamps) {
+        this.timestamps = timestamps;
+    }
 }

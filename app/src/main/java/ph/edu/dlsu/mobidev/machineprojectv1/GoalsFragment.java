@@ -86,21 +86,22 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                     @Override
                     public void onClick(View view) {
                         showEditGoalDialog(goalId);
-                }
+                    }
+                });
                 viewHolder.btnDeleteGoal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        deleteGoal(goalID);
+                        deleteGoal(goalId);
                     }
                 });
                 viewHolder.btnAchieveGoal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    achieveGoal(modelCopy);
-                }
-                    
+                    @Override
+                    public void onClick(View view) {
+                        achieveGoal(modelCopy);
+                    }
+
                 });
-            }
+            };
         };
         rvGoals.setAdapter(adapter);
 
@@ -247,11 +248,9 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                 .child("users").child(user.getUid()).child("goals").child(goalId);
         goalRef.updateChildren(goalUpdates);
         showSnackbar("Edited Goal");
+       }
     }
-<<<<<<< HEAD
-}
-=======
-                                                          
+
     protected void deleteGoal(String goalID){
         FirebaseUser cUser = mAuth.getCurrentUser();
         FirebaseDatabase ref = FirebaseDatabase.getInstance();
@@ -282,6 +281,5 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
 
         showSnackbar("Goal achieved!");
     }
->>>>>>> c02180d0517f7566e52e29e1b3170b4cc3809df2
 
 }

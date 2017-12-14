@@ -1,5 +1,7 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
+import android.graphics.Color;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.util.Log;
 import android.support.v4.view.ViewPager;
@@ -19,6 +21,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Date;
 
 
 /**
@@ -117,9 +121,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 //gets the unique generated ID of the achievement
                 String achievementKey = newAchievementsRef.getKey();
                 Achievement achievement = new Achievement(title, description, timestamp, username, achievementKey);
-
+                achievement.setTimestamps(-1 * new Date().getTime());
                 //sets the value of the achievement under the root
-                newAchievementsRef.setValue(new Achievement(title, description, timestamp, username, 0, 0));
+                newAchievementsRef.setValue(achievement);
 
                 //under users naman to
                 mDatabase.getReference().child("users").child(user.getUid()).child("activity_view_achievements").child(achievementKey).setValue(achievement);

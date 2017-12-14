@@ -27,9 +27,9 @@
 
                 <ImageView
                     android:id="@+id/btn_logoutMain"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/signout"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/logoutwhite"
                     android:layout_gravity="center"/>
 
         </LinearLayout>

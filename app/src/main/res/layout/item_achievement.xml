@@ -89,8 +89,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/smolermeh"
-                        />
+                        android:src="@drawable/smolermeh" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -100,8 +99,6 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"/>
                 </LinearLayout>
-
-
             </LinearLayout>
 
             <Button
@@ -110,6 +107,7 @@
                 android:layout_height="30dp"
                 android:text="Delete"
                 android:textColor="#fff"
+                android:layout_marginTop="5dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:background="@drawable/button_bg_stroke"/>
 

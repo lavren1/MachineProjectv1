@@ -92,6 +92,21 @@ public class AchievementsFragment extends Fragment {
         DatabaseReference userAchvmntRef = FirebaseDatabase.getInstance().getReference("users").child(cUser.getUid()).child("activity_view_achievements").child(achievementID);
         achvmntRef.removeValue();
         userAchvmntRef.removeValue();
+        
+        showSnackbar("Deleted Achievement.");
+    }
+    
+    public void showSnackbar(String message){
+        //snackbar
+        View view = getActivity().findViewById(android.R.id.content);
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
+        snackbar.setActionTextColor(Color.WHITE);
+        View snackView = snackbar.getView();
+        snackView.setBackgroundColor(Color.parseColor("#3F51B5"));
+        //TextView textView = snackView.findViewById(android.support.design.R.id.snackbar_text);
+        snackbar.show();
+
+        //Snackbar.make(view, "Goal Added", Snackbar.LENGTH_LONG).show();
     }
 
     private void onReactClick(DatabaseReference achRef){

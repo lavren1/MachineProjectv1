@@ -77,8 +77,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new FeedsFragment(), "Feed");
-        adapter.addFragment(new GoalsFragment(), "Goals");
         adapter.addFragment(new AchievementsFragment(), "Achievement");
+        adapter.addFragment(new GoalsFragment(), "Goals");
         viewPager.setAdapter(adapter);
     }
     
@@ -124,7 +124,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 //under users naman to
                 mDatabase.getReference().child("users").child(user.getUid()).child("activity_view_achievements").child(achievementKey).setValue(achievement);
 
-                Toast.makeText(getApplicationContext(), "Achievement Added!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Achievement Added!", Toast.LENGTH_SHORT).show();
+                showSnackbar("Added Achievement!");
             }
 
             @Override
@@ -133,6 +134,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+    }
+    
+    public void showSnackbar(String message){
+        //snackbar
+        View view = findViewById(android.R.id.content);
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
+        snackbar.setActionTextColor(Color.WHITE);
+        View snackView = snackbar.getView();
+        snackView.setBackgroundColor(Color.parseColor("#3F51B5"));
+        //TextView textView = snackView.findViewById(android.support.design.R.id.snackbar_text);
+        snackbar.show();
     }
 
 }

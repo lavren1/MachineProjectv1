@@ -80,12 +80,25 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                 viewHolder.setDesc(model.getDescription());
                 viewHolder.setTimestamp(model.getTimestamp());
                 final String goalId = model.getGoalId();
+                final Goal modelCopy = model;
 
                 viewHolder.btnEditGoal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         showEditGoalDialog(goalId);
+                }
+                viewHolder.btnDeleteGoal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        deleteGoal(goalID);
                     }
+                });
+                viewHolder.btnAchieveGoal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    achieveGoal(modelCopy);
+                }
+                    
                 });
             }
         };
@@ -235,6 +248,40 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         goalRef.updateChildren(goalUpdates);
         showSnackbar("Edited Goal");
     }
+<<<<<<< HEAD
 }
+=======
+                                                          
+    protected void deleteGoal(String goalID){
+        FirebaseUser cUser = mAuth.getCurrentUser();
+        FirebaseDatabase ref = FirebaseDatabase.getInstance();
+        DatabaseReference glRef = FirebaseDatabase.getInstance().getReference("users").child(cUser.getUid()).child("goals").child(goalID);
+        glRef.removeValue();
+
+        showSnackbar("Removed goal.");
+    }
+    
+    protected void achieveGoal (Goal model) {
+        Achievement newModel = new Achievement();
+        ph.edu.dlsu.mobidev.machineprojectv1.Timestamp ts = new ph.edu.dlsu.mobidev.machineprojectv1.Timestamp(System.currentTimeMillis());
+
+        newModel.setTitle(model.getTitle());
+        newModel.setDescription(model.getDescription());
+        newModel.setTimestamp(ts);
+        newModel.setUsername(model.getUsername());
+        newModel.setAchievementId(model.getGoalId());
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference achvmntRef = FirebaseDatabase.getInstance().getReference("achievements").child(newModel.getAchievementId());
+        achvmntRef.setValue(newModel);
+        DatabaseReference userAchvmntRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid()).child("achievements").child(newModel.getAchievementId());
+        userAchvmntRef.setValue(newModel);
+
+        DatabaseReference goalRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid()).child("goals").child(model.getGoalId());
+        goalRef.removeValue();
+
+        showSnackbar("Goal achieved!");
+    }
+>>>>>>> c02180d0517f7566e52e29e1b3170b4cc3809df2
 
 }

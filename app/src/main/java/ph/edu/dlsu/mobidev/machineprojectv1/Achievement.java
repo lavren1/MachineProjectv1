@@ -1,10 +1,11 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
-import java.sql.Timestamp;
+import com.google.firebase.database.Exclude;
 
-/**
- * Created by Nikko on 11/12/2017.
- */
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Achievement {
     String title;
@@ -12,6 +13,11 @@ public class Achievement {
     ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp;
     String username;
     String achievement_id;
+    int patCount = 0;
+    int mehCount = 0;
+    Map<String, Boolean> pats = new HashMap<>();
+    Map<String, Boolean> mehs = new HashMap<>();
+    long timestamps;
 
     public String getAchievementId() {
         return achievement_id;
@@ -48,7 +54,24 @@ public class Achievement {
         this.title = title;
         this.description = description;
     }
+
     public Achievement(){}
+
+    @Exclude
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("title", title);
+        result.put("description", description);
+        result.put("timestamp", timestamp);
+        result.put("timestamps", timestamps);
+        result.put("username", username);
+        result.put("patCount", patCount);
+        result.put("pats", pats);
+        result.put("mehCount", mehCount);
+        result.put("mehs", mehs);
+
+        return result;
+    }
 
     public String getTitle() {
         return title;
@@ -72,5 +95,53 @@ public class Achievement {
 
     public void setTimestamp(ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getAchievement_id() {
+        return achievement_id;
+    }
+
+    public void setAchievement_id(String achievement_id) {
+        this.achievement_id = achievement_id;
+    }
+
+    public Map<String, Boolean> getPats() {
+        return pats;
+    }
+
+    public void setPats(Map<String, Boolean> pats) {
+        this.pats = pats;
+    }
+
+    public Map<String, Boolean> getMehs() {
+        return mehs;
+    }
+
+    public void setMehs(Map<String, Boolean> mehs) {
+        this.mehs = mehs;
+    }
+
+    public int getPatCount() {
+        return patCount;
+    }
+
+    public void setPatCount(int patCount) {
+        this.patCount = patCount;
+    }
+
+    public int getMehCount() {
+        return mehCount;
+    }
+
+    public void setMehCount(int mehCount) {
+        this.mehCount = mehCount;
+    }
+
+    public long getTimestamps() {
+        return timestamps;
+    }
+
+    public void setTimestamps(long timestamps) {
+        this.timestamps = timestamps;
     }
 }

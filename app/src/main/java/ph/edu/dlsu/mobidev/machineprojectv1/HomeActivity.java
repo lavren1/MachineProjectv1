@@ -1,5 +1,7 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
+import android.graphics.Color;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.util.Log;
 import android.support.v4.view.ViewPager;
@@ -19,6 +21,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Date;
+import java.util.Map;
 
 
 /**
@@ -119,14 +124,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 //gets the unique generated ID of the achievement
                 String achievementKey = newAchievementsRef.getKey();
                 Achievement achievement = new Achievement(title, description, timestamp, username, achievementKey);
-
+                achievement.setTimestamps(-1 * new Date().getTime());
+                Map<String, Object> achievementValues = achievement.toMap();
                 //sets the value of the achievement under the root
-                newAchievementsRef.setValue(new Achievement(title, description, timestamp, username));
+                newAchievementsRef.setValue(achievementValues);
 
                 //under users naman to
                 mDatabase.getReference().child("users").child(user.getUid()).child("activity_view_achievements").child(achievementKey).setValue(achievement);
 
-                Toast.makeText(getApplicationContext(), "Achievement Added!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Achievement Added!", Toast.LENGTH_SHORT).show();
+                showSnackbar("Added Achievement!");
             }
 
             @Override
@@ -135,6 +142,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+    }
+    
+    public void showSnackbar(String message){
+        //snackbar
+        View view = findViewById(android.R.id.content);
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
+        snackbar.setActionTextColor(Color.WHITE);
+        View snackView = snackbar.getView();
+        snackView.setBackgroundColor(Color.parseColor("#3F51B5"));
+        //TextView textView = snackView.findViewById(android.support.design.R.id.snackbar_text);
+        snackbar.show();
     }
 
 }

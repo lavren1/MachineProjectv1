@@ -80,6 +80,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                 viewHolder.setDesc(model.getDescription());
                 viewHolder.setTimestamp(model.getTimestamp());
                 final String goalId = model.getGoalId();
+                final Goal modelCopy = model;
 
                 viewHolder.btnEditGoal.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -87,7 +88,20 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                         showEditGoalDialog(goalId);
                     }
                 });
-            }
+                viewHolder.btnDeleteGoal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        deleteGoal(goalId);
+                    }
+                });
+                viewHolder.btnAchieveGoal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        achieveGoal(modelCopy);
+                    }
+
+                });
+            };
         };
         rvGoals.setAdapter(adapter);
 
@@ -226,15 +240,46 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
             //todo cancel
         }
         else{
-            FirebaseUser user = mAuth.getCurrentUser();
-            Map<String, Object> goalUpdates = new HashMap<>();
-            goalUpdates.put("description", desc);
-            goalUpdates.put("title", title);
-            DatabaseReference goalRef = FirebaseDatabase.getInstance().getReference()
-                    .child("users").child(user.getUid()).child("goals").child(goalId);
-            goalRef.updateChildren(goalUpdates);
-            showSnackbar("Edited Goal");
-        }
+        FirebaseUser user = mAuth.getCurrentUser();
+        Map<String, Object> goalUpdates = new HashMap<>();
+        goalUpdates.put("description", desc);
+        goalUpdates.put("title", title);
+        DatabaseReference goalRef = FirebaseDatabase.getInstance().getReference()
+                .child("users").child(user.getUid()).child("goals").child(goalId);
+        goalRef.updateChildren(goalUpdates);
+        showSnackbar("Edited Goal");
+       }
+    }
+
+    protected void deleteGoal(String goalID){
+        FirebaseUser cUser = mAuth.getCurrentUser();
+        FirebaseDatabase ref = FirebaseDatabase.getInstance();
+        DatabaseReference glRef = FirebaseDatabase.getInstance().getReference("users").child(cUser.getUid()).child("goals").child(goalID);
+        glRef.removeValue();
+
+        showSnackbar("Removed goal.");
+    }
+    
+    protected void achieveGoal (Goal model) {
+        Achievement newModel = new Achievement();
+        ph.edu.dlsu.mobidev.machineprojectv1.Timestamp ts = new ph.edu.dlsu.mobidev.machineprojectv1.Timestamp(System.currentTimeMillis());
+
+        newModel.setTitle(model.getTitle());
+        newModel.setDescription(model.getDescription());
+        newModel.setTimestamp(ts);
+        newModel.setUsername(model.getUsername());
+        newModel.setAchievementId(model.getGoalId());
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference achvmntRef = FirebaseDatabase.getInstance().getReference("achievements").child(newModel.getAchievementId());
+        achvmntRef.setValue(newModel);
+        DatabaseReference userAchvmntRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid()).child("achievements").child(newModel.getAchievementId());
+        userAchvmntRef.setValue(newModel);
+
+        DatabaseReference goalRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid()).child("goals").child(model.getGoalId());
+        goalRef.removeValue();
+
+        showSnackbar("Goal achieved!");
     }
 
 }

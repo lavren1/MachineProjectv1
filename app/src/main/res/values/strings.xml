@@ -1,3 +1,7 @@
 <resources>
+<<<<<<< HEAD
     <string name="app_name">Pat App</string>
+=======
+    <string name="app_name">PatApp</string>
+>>>>>>> 3335287153a15d95eca77ad4e06a7c45a71168cd
 </resources>

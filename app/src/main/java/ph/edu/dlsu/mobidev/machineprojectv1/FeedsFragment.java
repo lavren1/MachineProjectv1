@@ -10,12 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
 
 /**
@@ -46,13 +51,33 @@ public class FeedsFragment extends Fragment {
 
         //firebase recycler view
         DatabaseReference allAchRef = FirebaseDatabase.getInstance().getReference("activity_view_achievements");
-        FirebaseRecyclerAdapter<Achievement, FeedHolder> feedAdapter = new FirebaseRecyclerAdapter<Achievement, FeedHolder>(Achievement.class, R.layout.item_feed, FeedHolder.class, allAchRef){
+        FirebaseRecyclerAdapter<Achievement, FeedHolder> feedAdapter = new FirebaseRecyclerAdapter<Achievement, FeedHolder>
+                (Achievement.class, R.layout.item_feed, FeedHolder.class, allAchRef.orderByChild("timestamps")){
             @Override
             protected void populateViewHolder(FeedHolder viewHolder, Achievement model, int position) {
                 viewHolder.setOwner(model.getUsername());
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDescription());
                 viewHolder.setTimestamp(model.getTimestamp());
+                viewHolder.setPat(model.getPatCount());
+                viewHolder.setMeh(model.getMehCount());
+                final DatabaseReference ref = getRef(position);
+                final String key = ref.getKey();
+                final int fposition = position;
+
+                viewHolder.btnPat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onPatClicked(ref);
+                    }
+                });
+
+                viewHolder.btnMeh.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onMehClicked(ref);
+                    }
+                });
             }
         };
         rvFeed.setAdapter(feedAdapter);
@@ -69,5 +94,75 @@ public class FeedsFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void onPatClicked(DatabaseReference achievementRef){
+        achievementRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                Achievement a = mutableData.getValue(Achievement.class);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(a == null){
+                    return Transaction.success(mutableData);
+                }
+                if(a.pats.containsKey(user.getUid())){
+                    a.patCount--;
+                    a.pats.remove(user.getUid());
+                }
+                else if(a.mehs.containsKey(user.getUid())){
+                    a.mehCount--;
+                    a.mehs.remove(user.getUid());
+                    a.patCount++;
+                    a.pats.put(user.getUid(), true);
+                }
+                else{
+                    a.patCount++;
+                    a.pats.put(user.getUid(), true);
+                }
+
+                mutableData.setValue(a);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                //Transaction completed
+            }
+        });
+    }
+
+    public void onMehClicked(DatabaseReference achievementRef){
+        achievementRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                Achievement a = mutableData.getValue(Achievement.class);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(a == null){
+                    return Transaction.success(mutableData);
+                }
+                if(a.mehs.containsKey(user.getUid())){
+                    a.mehCount--;
+                    a.mehs.remove(user.getUid());
+                }
+                else if(a.pats.containsKey(user.getUid())){
+                    a.patCount--;
+                    a.pats.remove(user.getUid());
+                    a.mehCount++;
+                    a.mehs.put(user.getUid(), true);
+                }
+                else{
+                    a.mehCount++;
+                    a.mehs.put(user.getUid(), true);
+                }
+
+                mutableData.setValue(a);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                //Transaction completed
+            }
+        });
     }
 }

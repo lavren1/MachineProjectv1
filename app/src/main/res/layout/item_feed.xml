@@ -52,13 +52,19 @@
                 android:layout_height="wrap_content"
                 android:text="Pat"
                 android:id="@+id/btn_pat"/>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3335287153a15d95eca77ad4e06a7c45a71168cd
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:id="@+id/tv_pat_count"/>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3335287153a15d95eca77ad4e06a7c45a71168cd
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

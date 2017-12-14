@@ -19,6 +19,8 @@ public class GoalHolder extends ViewHolder{
     private final  TextView tvGoalDesc;
     private final TextView tvGoalDateTime;
     public final Button btnEditGoal;
+    public final Button btnDeleteGoal;
+    public final Button btnAchieveGoal;
 
     public GoalHolder(View itemView) {
         super(itemView);
@@ -27,6 +29,8 @@ public class GoalHolder extends ViewHolder{
         tvGoalDesc = itemView.findViewById(R.id.tv_goal_desc);
         tvGoalDateTime = itemView.findViewById(R.id.tv_goal_ts);
         btnEditGoal = itemView.findViewById(R.id.btn_edit_goal);
+        btnDeleteGoal = itemView.findViewById(R.id.btn_delete_goal);
+        btnAchieveGoal = itemView.findViewById(R.id.btn_achieve_goal);
 
     }
 

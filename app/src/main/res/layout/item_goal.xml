@@ -44,11 +44,34 @@
                 android:text="Timestamp"
                 android:textSize="15dp"/>
 
+<<<<<<< HEAD
             <Button
                 android:id="@+id/btn_edit_goal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Edit"/>
+=======
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit"
+                    android:id="@+id/btn_edit_goal"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delete"
+                    android:id="@+id/btn_delete_goal"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Achieve"
+                    android:id="@+id/btn_achieve_goal"/>
+            </LinearLayout>
+>>>>>>> 3335287153a15d95eca77ad4e06a7c45a71168cd
 
         </LinearLayout>
 

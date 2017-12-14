@@ -92,13 +92,15 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                 viewHolder.btnDeleteGoal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        deleteGoal(goalId);
+                        confirmDelete(goalId);
+                        //deleteGoal(goalId);
                     }
                 });
                 viewHolder.btnAchieveGoal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        achieveGoal(modelCopy);
+                        confirmAchieve(modelCopy);
+                        //achieveGoal(modelCopy);
                     }
 
                 });
@@ -294,4 +296,40 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         showSnackbar("Goal Achieved!");
     }
 
+    protected void confirmAchieve (final Goal model){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                .setTitle("Confirm Achieve Goal")
+                .setMessage("Are you sure you have achieved this?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        achieveGoal(model);
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("No",  new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create().show();
+    }
+
+    protected void confirmDelete (final String goalID){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                .setTitle("Confirm Delete Goal")
+                .setMessage("Are you sure you want to delete this?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        deleteGoal(goalID);
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("No",  new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create().show();
+    }
+    
 }

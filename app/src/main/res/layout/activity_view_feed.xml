@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/feed">
+    android:id="@+id/feed"
+    android:background="#f4f4f4">
 
     <Button
         android:id="@+id/logout_feed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Log out" />
+        android:text="Log out"
+        android:focusable="true"
+        android:background="@drawable/banner"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/world_feed"

@@ -35,6 +35,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        getSupportActionBar().hide();
+
         mAuth = FirebaseAuth.getInstance();
         Log.d(TAG, "onCreate: Starting.");
 

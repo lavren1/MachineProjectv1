@@ -46,7 +46,7 @@ public class GoalHolder extends ViewHolder{
 
     public void setTimestamp (Timestamp ts){
         Date date = new Date(ts.getTime());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy 'at' hh:mm aaa");
         tvGoalDateTime.setText(sdf.format(date));
     }
 }

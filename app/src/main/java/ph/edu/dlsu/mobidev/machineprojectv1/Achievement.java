@@ -18,6 +18,7 @@ public class Achievement {
     Map<String, Boolean> pats = new HashMap<>();
     Map<String, Boolean> mehs = new HashMap<>();
     long timestamps;
+    String usernameKey;
 
     public String getAchievementId() {
         return achievement_id;
@@ -69,6 +70,7 @@ public class Achievement {
         result.put("pats", pats);
         result.put("mehCount", mehCount);
         result.put("mehs", mehs);
+        result.put("usernameKey", usernameKey);
 
         return result;
     }
@@ -143,5 +145,13 @@ public class Achievement {
 
     public void setTimestamps(long timestamps) {
         this.timestamps = timestamps;
+    }
+
+    public String getUsernameKey() {
+        return usernameKey;
+    }
+
+    public void setUsernameKey(String usernameKey) {
+        this.usernameKey = usernameKey;
     }
 }

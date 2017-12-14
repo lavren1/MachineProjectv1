@@ -66,6 +66,8 @@ public class AchievementsFragment extends Fragment {
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDescription());
                 viewHolder.setTimestamp(model.getTimestamp());
+                viewHolder.setPats(model.getPatCount());
+                viewHolder.setMehs(model.getMehCount());
                 final String achievementID = getRef(position).getKey();
 
                 viewHolder.btnDeleteAchievement.setOnClickListener(new View.OnClickListener() {

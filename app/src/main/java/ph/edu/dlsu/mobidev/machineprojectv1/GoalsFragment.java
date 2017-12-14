@@ -266,6 +266,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
     protected void achieveGoal (Goal model) {
         Achievement newModel = new Achievement();
         ph.edu.dlsu.mobidev.machineprojectv1.Timestamp ts = new ph.edu.dlsu.mobidev.machineprojectv1.Timestamp(System.currentTimeMillis());
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         newModel.setTitle(model.getTitle());
         newModel.setDescription(model.getDescription());
@@ -273,6 +274,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         newModel.setUsername(model.getUsername());
         newModel.setAchievementId(model.getGoalId());
         newModel.setTimestamps(-1 * new Date().getTime());
+        newModel.setUsernameKey(user.getUid());
 
         Map<String, Object>achievementValues = newModel.toMap();
 

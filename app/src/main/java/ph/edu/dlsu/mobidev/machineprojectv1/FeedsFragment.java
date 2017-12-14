@@ -24,6 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * Created by Nikko on 11/11/2017.
@@ -112,30 +115,43 @@ public class FeedsFragment extends Fragment {
         return view;
     }
 
-    public void onPatClicked(DatabaseReference achievementRef){
+    public void onPatClicked(final DatabaseReference achievementRef){
         achievementRef.runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
                 Achievement a = mutableData.getValue(Achievement.class);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                DatabaseReference userAchRef = FirebaseDatabase.getInstance().getReference()
+                        .child("users").child(a.usernameKey).child("activity_view_achievements")
+                        .child(achievementRef.getKey());
+                Map<String, Object> achievementUpdates = new HashMap<>();
+                int patcount, mehcount;
                 if(a == null){
                     return Transaction.success(mutableData);
                 }
                 if(a.pats.containsKey(user.getUid())){
                     a.patCount--;
                     a.pats.remove(user.getUid());
+                    patcount = a.patCount;
+                    achievementUpdates.put("patCount", patcount);
                 }
                 else if(a.mehs.containsKey(user.getUid())){
                     a.mehCount--;
                     a.mehs.remove(user.getUid());
                     a.patCount++;
                     a.pats.put(user.getUid(), true);
+                    patcount = a.patCount;
+                    achievementUpdates.put("patCount", patcount);
+                    mehcount = a.mehCount;
+                    achievementUpdates.put("mehCount", mehcount);
                 }
                 else{
                     a.patCount++;
                     a.pats.put(user.getUid(), true);
+                    patcount = a.patCount;
+                    achievementUpdates.put("patCount", patcount);
                 }
-
+                userAchRef.updateChildren(achievementUpdates);
                 mutableData.setValue(a);
                 return Transaction.success(mutableData);
             }
@@ -147,30 +163,43 @@ public class FeedsFragment extends Fragment {
         });
     }
 
-    public void onMehClicked(DatabaseReference achievementRef){
+    public void onMehClicked(final DatabaseReference achievementRef){
         achievementRef.runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
                 Achievement a = mutableData.getValue(Achievement.class);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                DatabaseReference userAchRef = FirebaseDatabase.getInstance().getReference()
+                        .child("users").child(a.usernameKey).child("activity_view_achievements")
+                        .child(achievementRef.getKey());
+                Map<String, Object> achievementUpdates = new HashMap<>();
+                int patcount, mehcount;
                 if(a == null){
                     return Transaction.success(mutableData);
                 }
                 if(a.mehs.containsKey(user.getUid())){
                     a.mehCount--;
                     a.mehs.remove(user.getUid());
+                    mehcount = a.mehCount;
+                    achievementUpdates.put("mehCount", mehcount);
                 }
                 else if(a.pats.containsKey(user.getUid())){
                     a.patCount--;
                     a.pats.remove(user.getUid());
                     a.mehCount++;
                     a.mehs.put(user.getUid(), true);
+                    patcount = a.patCount;
+                    mehcount = a.mehCount;
+                    achievementUpdates.put("mehCount", mehcount);
+                    achievementUpdates.put("patCount", patcount);
                 }
                 else{
                     a.mehCount++;
                     a.mehs.put(user.getUid(), true);
+                    mehcount = a.mehCount;
+                    achievementUpdates.put("mehCount", mehcount);
                 }
-
+                userAchRef.updateChildren(achievementUpdates);
                 mutableData.setValue(a);
                 return Transaction.success(mutableData);
             }

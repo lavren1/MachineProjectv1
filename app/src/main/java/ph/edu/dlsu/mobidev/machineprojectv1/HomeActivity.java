@@ -125,6 +125,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 String achievementKey = newAchievementsRef.getKey();
                 Achievement achievement = new Achievement(title, description, timestamp, username, achievementKey);
                 achievement.setTimestamps(-1 * new Date().getTime());
+                achievement.setUsernameKey(user.getUid());
                 Map<String, Object> achievementValues = achievement.toMap();
                 //sets the value of the achievement under the root
                 newAchievementsRef.setValue(achievementValues);

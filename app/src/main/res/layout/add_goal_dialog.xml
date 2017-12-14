@@ -11,11 +11,13 @@
         android:id="@+id/form_goal_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Title"/>
+        android:hint="Title"
+        android:maxLength="30"/>
     <EditText
         android:id="@+id/form_goal_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Description"/>
+        android:hint="Description"
+        android:maxLength="140"/>
 
 </LinearLayout>

@@ -26,8 +26,6 @@
         android:layout_marginRight="16dp"
         app:borderWidth="0dp"
         app:fabSize="normal"
-        app:rippleColor="#ec5456"
-        app:backgroundTint="@android:color/white"
-        />
+        app:rippleColor="#ec5456" />
 
 </RelativeLayout>

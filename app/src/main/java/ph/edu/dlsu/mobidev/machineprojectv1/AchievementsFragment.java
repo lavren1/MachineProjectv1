@@ -71,7 +71,8 @@ public class AchievementsFragment extends Fragment {
                 viewHolder.btnDeleteAchievement.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        deleteAchievement(achievementID);
+                        confirmDelete(achievementID);
+                        //deleteAchievement(achievementID);
                     }
                 });
             }
@@ -99,6 +100,24 @@ public class AchievementsFragment extends Fragment {
         userAchvmntRef.removeValue();
         
         showSnackbar("Achievement Deleted!");
+    }
+    
+    protected void confirmDelete (final String achievementID){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                .setTitle("Confirm Delete Achievement")
+                .setMessage("Are you sure you want to delete this?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        deleteAchievement(achievementID);
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("No",  new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create().show();
     }
     
     public void showSnackbar(String message){

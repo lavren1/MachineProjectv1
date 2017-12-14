@@ -274,9 +274,9 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         newModel.setAchievementId(model.getGoalId());
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference achvmntRef = FirebaseDatabase.getInstance().getReference("achievements").child(newModel.getAchievementId());
+        DatabaseReference achvmntRef = FirebaseDatabase.getInstance().getReference("activity_view_achievements").child(newModel.getAchievementId());
         achvmntRef.setValue(newModel);
-        DatabaseReference userAchvmntRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid()).child("achievements").child(newModel.getAchievementId());
+        DatabaseReference userAchvmntRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid()).child("activity_view_achievements").child(newModel.getAchievementId());
         userAchvmntRef.setValue(newModel);
 
         DatabaseReference goalRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid()).child("goals").child(model.getGoalId());

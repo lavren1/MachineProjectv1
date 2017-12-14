@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginBottom="-5dp">
 
     <android.support.v7.widget.CardView
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -14,31 +24,31 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/tv_goal_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Title"
-                android:textSize="33dp"
-                android:id="@+id/tv_goal_title"/>
+                android:textSize="30dp"/>
 
             <TextView
+                android:id="@+id/tv_goal_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Description"
-                android:textSize="18dp"
-                android:id="@+id/tv_goal_desc"/>
+                android:textSize="20dp"/>
 
             <TextView
+                android:id="@+id/tv_goal_ts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Timestamp"
-                android:textSize="18dp"
-                android:id="@+id/tv_goal_ts"/>
+                android:textSize="15dp"/>
 
             <Button
+                android:id="@+id/btn_edit_goal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"
-                android:id="@+id/btn_edit_goal"/>
+                android:text="Edit"/>
 
         </LinearLayout>
 

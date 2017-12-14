@@ -57,5 +57,15 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
+    
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_bar"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:visibility="gone"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="true"/>
 
 </RelativeLayout>

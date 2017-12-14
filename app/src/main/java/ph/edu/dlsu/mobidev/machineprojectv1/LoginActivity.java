@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +22,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btnSignIn;
     private EditText etEmail, etPassword;
     private TextView tvSignUp;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         etEmail = (EditText) findViewById(R.id.et_login_email);
         etPassword = (EditText) findViewById(R.id.et_login_password);
         btnSignIn = (Button) findViewById(R.id.btn_log_in);
-
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar_login);
 
         tvSignUp.setOnClickListener(this);
         btnSignIn.setOnClickListener(this);
@@ -61,18 +64,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
+        progressBar.setVisibility(View.VISIBLE);
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            progressBar.setVisibility(View.GONE);
                             finish();
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                             //start home activity
                         }
                         else{
-
+                            Toast.makeText(getApplicationContext(), "Invalid user credentials"
+                                    , Toast.LENGTH_SHORT).show();
                         }
+
                     }
                 });
     }

@@ -1,6 +1,8 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -62,19 +64,21 @@ public class FeedsFragment extends Fragment {
                 viewHolder.setPat(model.getPatCount());
                 viewHolder.setMeh(model.getMehCount());
                 final DatabaseReference ref = getRef(position);
-                final String key = ref.getKey();
-                final int fposition = position;
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                 if(model.pats.containsKey(user.getUid())){
-
+                    viewHolder.tvPatCount.setTextColor(Color.parseColor("#ec5f54"));
+                    viewHolder.tvPatCount.setTypeface(null, Typeface.BOLD);
                 } else{
-
+                    viewHolder.tvPatCount.setTextColor(Color.GRAY);
+                    viewHolder.tvPatCount.setTypeface(null, Typeface.NORMAL);
                 }
                 if(model.mehs.containsKey(user.getUid())){
-
+                    viewHolder.tvMehCount.setTextColor(Color.parseColor("#ec5f54"));
+                    viewHolder.tvMehCount.setTypeface(null, Typeface.BOLD);
                 } else{
-
+                    viewHolder.tvMehCount.setTextColor(Color.GRAY);
+                    viewHolder.tvMehCount.setTypeface(null, Typeface.NORMAL);
                 }
 
                 viewHolder.btnPat.setOnClickListener(new View.OnClickListener() {

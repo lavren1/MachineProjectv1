@@ -61,8 +61,4 @@ public class FeedHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM'.' d, yyyy 'at' hh:mm aaa");
         tvFeedAchievementDateTime.setText(sdf.format(date));
     }
-
-    public void setPatActive(){
-
-    }
 }

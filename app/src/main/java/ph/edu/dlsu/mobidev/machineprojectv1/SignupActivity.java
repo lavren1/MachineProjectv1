@@ -1,5 +1,6 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.nfc.Tag;
@@ -12,6 +13,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
@@ -37,6 +39,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     Button signup_button;
     private FirebaseAuth mAuth;
     DatabaseReference mDatabase;
+    ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -51,6 +54,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         signup_repassword = (EditText) findViewById(R.id.et_signup_repassword);
         signup_button = (Button) findViewById(R.id.btn_sign_up);
         signup_username = (EditText) findViewById(R.id.et_signup_username);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         signup_button.setOnClickListener(this);
     }
@@ -87,22 +91,23 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        //todo create progress bar/dialog
+        progressBar.setVisibility(View.VISIBLE);
+
         mAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Log.d(TAG, "create user with email: "+task.isSuccessful());
-                            Toast.makeText(getApplicationContext(), "User Registered Successfully",
-                                    Toast.LENGTH_SHORT).show(); //todo change toast
-                            //todo progress dialog
+                            progressBar.setVisibility(View.GONE);
                             createNewUser(task.getResult().getUser());
                             finish();
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                            } else{
+                            Toast.makeText(getApplicationContext(), "Password needs at least" +
+                                            " 6 characters",
+                                    Toast.LENGTH_SHORT).show();
                             }
-                            //todo error message
-
                         }
                     });
 

@@ -39,7 +39,7 @@ public class AchievementHolder extends ViewHolder {
 
     public void setTimestamp (Timestamp ts){
         Date date = new Date(ts.getTime());
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy 'at' hh:mm aaa");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM'.' d, yyyy 'at' hh:mm aaa");
         tvAchievementDateTime.setText(sdf.format(date));
     }
 }

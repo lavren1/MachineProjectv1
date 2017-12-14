@@ -19,8 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -201,7 +199,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
 
                 Log.d("Test", username + ": new goal added");
 
-                showSnackbar("Added Goal");
+                showSnackbar("Goal Added!");
 
             }
 
@@ -223,7 +221,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
 
         snackView.setBackgroundColor(Color.parseColor("#3F51B5"));
 
-        Snackbar.make(view, "Goal Added", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
 
     public void createGoal(String title, String desc){
@@ -250,7 +248,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         DatabaseReference goalRef = FirebaseDatabase.getInstance().getReference()
                 .child("users").child(user.getUid()).child("goals").child(goalId);
         goalRef.updateChildren(goalUpdates);
-        showSnackbar("Edited Goal");
+        showSnackbar("Goal Edited!");
        }
     }
 
@@ -260,7 +258,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         DatabaseReference glRef = FirebaseDatabase.getInstance().getReference("users").child(cUser.getUid()).child("goals").child(goalID);
         glRef.removeValue();
 
-        showSnackbar("Removed goal.");
+        showSnackbar("Goal Deleted!");
     }
     
     protected void achieveGoal (Goal model) {
@@ -272,17 +270,26 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         newModel.setTimestamp(ts);
         newModel.setUsername(model.getUsername());
         newModel.setAchievementId(model.getGoalId());
+        newModel.setTimestamps(-1 * new Date().getTime());
+
+        Map<String, Object>achievementValues = newModel.toMap();
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference achvmntRef = FirebaseDatabase.getInstance().getReference("activity_view_achievements").child(newModel.getAchievementId());
-        achvmntRef.setValue(newModel);
-        DatabaseReference userAchvmntRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid()).child("activity_view_achievements").child(newModel.getAchievementId());
-        userAchvmntRef.setValue(newModel);
+        DatabaseReference achvmntRef = FirebaseDatabase.getInstance().getReference("activity_view_achievements")
+                .child(newModel.getAchievementId());
+
+        achvmntRef.setValue(achievementValues);
+
+        DatabaseReference userAchvmntRef = FirebaseDatabase.getInstance().getReference("users")
+                .child(currentUser.getUid())
+                .child("activity_view_achievements")
+                .child(newModel.getAchievementId());
+        userAchvmntRef.setValue(achievementValues);
 
         DatabaseReference goalRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid()).child("goals").child(model.getGoalId());
         goalRef.removeValue();
 
-        showSnackbar("Goal achieved!");
+        showSnackbar("Goal Achieved!");
     }
 
 }

@@ -104,8 +104,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                             finish();
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                             } else{
-                            Toast.makeText(getApplicationContext(), "Password needs at least" +
-                                            " 6 characters",
+                            Toast.makeText(getApplicationContext(), "Something went wrong :(",
                                     Toast.LENGTH_SHORT).show();
                             }
                         }

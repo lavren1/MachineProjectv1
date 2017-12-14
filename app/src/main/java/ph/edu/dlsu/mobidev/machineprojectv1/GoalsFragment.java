@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -228,7 +229,8 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         FirebaseUser user = mAuth.getCurrentUser();
 
         if(title.isEmpty()){
-            //todo cancel
+            Toast.makeText(getActivity(), "Title cannot be empty!", Toast.LENGTH_SHORT).show();
+            showAddGoalDialog();
         }
         else
         saveGoal(user, title, desc);
@@ -237,7 +239,8 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
 
     public void editGoal(String title, String desc, String goalId){
         if(title.isEmpty()){
-            //todo cancel
+            Toast.makeText(getActivity(), "Title cannot be empty!", Toast.LENGTH_SHORT).show();
+            showEditGoalDialog(goalId);
         }
         else{
         FirebaseUser user = mAuth.getCurrentUser();

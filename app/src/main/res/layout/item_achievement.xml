@@ -27,21 +27,29 @@
                 android:id="@+id/tv_achievement_title"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="30dp"/>
+                android:text="Title"
+                android:textSize="30dp"
+                android:textColor="#000000"/>
 
             <TextView
                 android:id="@+id/tv_achievement_ts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:textSize="15dp"/>
+                android:text="Timestamp"
+                android:textSize="12dp"
+                android:textColor="#323232"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="5dp"/>
 
             <TextView
                 android:id="@+id/tv_achievement_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"/>
+                android:text="Description"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                android:layout_marginBottom="5dp"/>
 
             <Button
                 android:layout_width="wrap_content"

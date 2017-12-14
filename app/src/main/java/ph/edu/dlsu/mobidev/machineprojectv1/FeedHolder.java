@@ -58,7 +58,6 @@ public class FeedHolder extends RecyclerView.ViewHolder {
     public void setTimestamp (java.sql.Timestamp ts){
         Date date = new Date(ts.getTime());
         SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy 'at' hh:mm aaa");
-        //TODO fix format
         tvFeedAchievementDateTime.setText(sdf.format(date));
     }
 }

@@ -119,7 +119,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Achievement achievement = new Achievement(title, description, timestamp, username, achievementKey);
 
                 //sets the value of the achievement under the root
-                newAchievementsRef.setValue(new Achievement(title, description, timestamp, username));
+                newAchievementsRef.setValue(new Achievement(title, description, timestamp, username, 0, 0));
 
                 //under users naman to
                 mDatabase.getReference().child("users").child(user.getUid()).child("activity_view_achievements").child(achievementKey).setValue(achievement);

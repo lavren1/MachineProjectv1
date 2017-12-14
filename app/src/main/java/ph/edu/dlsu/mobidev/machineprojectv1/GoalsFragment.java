@@ -226,15 +226,15 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
             //todo cancel
         }
         else{
-            FirebaseUser user = mAuth.getCurrentUser();
-            Map<String, Object> goalUpdates = new HashMap<>();
-            goalUpdates.put("description", desc);
-            goalUpdates.put("title", title);
-            DatabaseReference goalRef = FirebaseDatabase.getInstance().getReference()
-                    .child("users").child(user.getUid()).child("goals").child(goalId);
-            goalRef.updateChildren(goalUpdates);
-            showSnackbar("Edited Goal");
-        }
+        FirebaseUser user = mAuth.getCurrentUser();
+        Map<String, Object> goalUpdates = new HashMap<>();
+        goalUpdates.put("description", desc);
+        goalUpdates.put("title", title);
+        DatabaseReference goalRef = FirebaseDatabase.getInstance().getReference()
+                .child("users").child(user.getUid()).child("goals").child(goalId);
+        goalRef.updateChildren(goalUpdates);
+        showSnackbar("Edited Goal");
     }
+}
 
 }

@@ -14,8 +14,12 @@ import android.widget.EditText;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
 /**
  * Created by Nikko on 11/11/2017.
@@ -88,5 +92,12 @@ public class AchievementsFragment extends Fragment {
         DatabaseReference userAchvmntRef = FirebaseDatabase.getInstance().getReference("users").child(cUser.getUid()).child("activity_view_achievements").child(achievementID);
         achvmntRef.removeValue();
         userAchvmntRef.removeValue();
+    }
+
+    private void onReactClick(DatabaseReference achRef){
+        achRef.runTransaction(new Transaction.Handler() {
+
+
+        });
     }
 }

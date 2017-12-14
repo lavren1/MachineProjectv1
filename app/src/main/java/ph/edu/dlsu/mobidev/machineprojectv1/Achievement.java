@@ -1,6 +1,7 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  * Created by Nikko on 11/12/2017.
@@ -12,6 +13,8 @@ public class Achievement {
     ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp;
     String username;
     String achievement_id;
+    int patsCount;
+    int mehsCount;
 
     public String getAchievementId() {
         return achievement_id;
@@ -37,11 +40,13 @@ public class Achievement {
         this.achievement_id = achievement_id;
     }
 
-    public Achievement(String title, String description, ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp, String username) {
+    public Achievement(String title, String description, ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp, String username, int pats, int mehs) {
         this.title = title;
         this.description = description;
         this.timestamp = timestamp;
         this.username = username;
+        this.patsCount = pats;
+        this.mehsCount = mehs;
     }
 
     public Achievement(String title, String description){
@@ -73,4 +78,22 @@ public class Achievement {
     public void setTimestamp(ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp) {
         this.timestamp = timestamp;
     }
+
+    public int getPats() {
+        return patsCount;
+    }
+
+    public void setPats(int pats) {
+        this.patsCount = pats;
+    }
+
+    public int getMehs() {
+        return mehsCount;
+    }
+
+    public void setMehs(int mehs) {
+        this.mehsCount = mehs;
+    }
+
+
 }

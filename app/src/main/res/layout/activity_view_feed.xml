@@ -7,15 +7,6 @@
     android:background="#f4f4f4"
     android:id="@+id/feed">
 
-    <Button
-        android:id="@+id/logout_feed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Log out"
-        android:focusable="true"
-        android:background="@drawable/banner"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/world_feed"
         android:layout_width="match_parent"

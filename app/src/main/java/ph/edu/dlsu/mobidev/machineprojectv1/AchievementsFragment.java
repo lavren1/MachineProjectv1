@@ -97,7 +97,7 @@ public class AchievementsFragment extends Fragment {
         achvmntRef.removeValue();
         userAchvmntRef.removeValue();
         
-        showSnackbar("Deleted Achievement.");
+        showSnackbar("Deleted Achievement!");
     }
     
     public void showSnackbar(String message){
@@ -108,9 +108,8 @@ public class AchievementsFragment extends Fragment {
         View snackView = snackbar.getView();
         snackView.setBackgroundColor(Color.parseColor("#3F51B5"));
         //TextView textView = snackView.findViewById(android.support.design.R.id.snackbar_text);
-        snackbar.show();
 
-        //Snackbar.make(view, "Goal Added", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
 
     private void onReactClick(DatabaseReference achRef){

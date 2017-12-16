@@ -74,7 +74,6 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         fabAddGoal.setImageResource(R.drawable.addicon);
         fabAddGoal.setOnClickListener(this);
 
-
         //firebase recycler view
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("goals");
         FirebaseRecyclerAdapter<Goal, GoalHolder>adapter = new FirebaseRecyclerAdapter<Goal, GoalHolder>
@@ -86,6 +85,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                 viewHolder.setTimestamp(model.getTimestamp());
                 final String goalId = model.getGoalId();
                 final Goal modelCopy = model;
+                final String goalDesc = model.getDescription();
 
                 viewHolder.tvGoalOptions.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -97,7 +97,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                             public boolean onMenuItemClick(MenuItem item) {
                                 switch(item.getItemId()){
                                     case R.id.edit_goal:
-                                        showEditGoalDialog(goalId);
+                                        showEditGoalDialog(goalId, goalDesc);
                                         break;
                                     case R.id.delete_goal:
                                         confirmDelete(goalId);
@@ -125,7 +125,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.hasChildren()) {
-                    tvGoalsBlankState.setText("You don't have any goals yet, click on the bottom right button and get started!");
+                    tvGoalsBlankState.setText("You currently don't have any goals, click on the bottom right button and get started!");
                 } else {
                     tvGoalsBlankState.setText("");
                 }
@@ -148,7 +148,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                 break;
         }
     }
-    protected void showEditGoalDialog(final String goalId){
+    protected void showEditGoalDialog(final String goalId, final String oldGoalDesc){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -158,13 +158,10 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                         Dialog f = (Dialog) dialog;
                         EditText description;
 
-                        description  = f.findViewById(R.id.form_goal_desc);
-
+                        description = f.findViewById(R.id.form_goal_desc);
                         String goalDesc = description.getText().toString().trim();
 
-                        editGoal(goalDesc, goalId);
-
-
+                        editGoal(goalDesc, goalId, goalDesc);
                     }
                 })
                 .setNegativeButton("Cancel",  new DialogInterface.OnClickListener() {
@@ -172,7 +169,6 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                         dialog.dismiss();
                     }
                 });
-
         builder.create().show();
     }
     protected void showAddGoalDialog() {
@@ -255,10 +251,10 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    public void editGoal(String desc, String goalId){
+    public void editGoal(String desc, String goalId, String goalDesc){
         if(desc.isEmpty()){
             Toast.makeText(getActivity(), "Description cannot be empty!", Toast.LENGTH_SHORT).show();
-            showEditGoalDialog(goalId);
+            showEditGoalDialog(goalId, goalDesc);
         }
         else{
         FirebaseUser user = mAuth.getCurrentUser();

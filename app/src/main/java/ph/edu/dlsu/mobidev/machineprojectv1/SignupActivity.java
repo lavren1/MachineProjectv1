@@ -66,7 +66,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         final String username = signup_username.getText().toString().trim();
 
         if(email.isEmpty()){
-            signup_email.setError("Username is required");
+            signup_email.setError("Email is required");
             signup_email.requestFocus();
             return;
         }
@@ -75,8 +75,23 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             signup_email.requestFocus();
             return;
         }
+        if(username.isEmpty()){
+            signup_username.setError("Username is required");
+            signup_username.requestFocus();
+            return;
+        }
+        if(username.length() <= 2 || username.length() >= 17){
+            signup_username.setError("Username should be 3-16 characters long");
+            signup_username.requestFocus();
+            return;
+        }
         if(password.isEmpty()){
             signup_password.setError("Password is required");
+            signup_password.requestFocus();
+            return;
+        }
+        if(password.length() <= 5){
+            signup_password.setError("Password needs to have at least 6 characters");
             signup_password.requestFocus();
             return;
         }
@@ -104,8 +119,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                             finish();
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                             } else{
-                            Toast.makeText(getApplicationContext(), "Something went wrong :(",
+                            task.getException().getLocalizedMessage();
+                            Toast.makeText(getApplicationContext(), task.getException().getLocalizedMessage(),
                                     Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
                             }
                         }
                     });

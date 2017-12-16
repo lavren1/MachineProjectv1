@@ -106,7 +106,8 @@ public class AchievementsFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.hasChildren()) {
-                    tvAchievementsBlankState.setText("You don't have any achievements yet, click on the bottom right button or work towards your current goals!");
+                    tvAchievementsBlankState.setText("You currently don't have any achievements," +
+                            " click on the bottom right button or work towards your current goals!");
                 } else {
                     tvAchievementsBlankState.setText("");
                 }

@@ -2,11 +2,8 @@ package ph.edu.dlsu.mobidev.machineprojectv1;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.github.kevinsawicki.timeago.TimeAgo;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;

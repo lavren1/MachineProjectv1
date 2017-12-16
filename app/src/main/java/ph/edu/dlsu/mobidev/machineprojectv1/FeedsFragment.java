@@ -1,6 +1,5 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;

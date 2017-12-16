@@ -151,30 +151,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         mDatabase.child("users").child(userId).setValue(user);
         //
     }
-/*    private boolean checkUniqueUser(final String username, final String email, final String password){
-        final boolean[] result = {true};
-        mDatabase.runTransaction(new Transaction.Handler() {
-            @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
-                UserList userList = mutableData.getValue(UserList.class);
-                if(userList.users.containsKey(username)){
-                    result[0] = false;
-                    return Transaction.success(mutableData);
-                }
-                else{
-                    userList.users.put(username, true);
-                }
-                mutableData.setValue(userList);
-                return Transaction.success(mutableData);
-            }
-
-            @Override
-            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-
-            }
-        });
-        return result[0];
-    }*/
 
     @Override
     public void onClick(View v){

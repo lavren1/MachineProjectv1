@@ -125,7 +125,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.hasChildren()) {
-                    tvGoalsBlankState.setText("You don't have any goals yet, click on the bottom right button and get started!");
+                    tvGoalsBlankState.setText("You currently don't have any goals, click on the bottom right button and get started!");
                 } else {
                     tvGoalsBlankState.setText("");
                 }

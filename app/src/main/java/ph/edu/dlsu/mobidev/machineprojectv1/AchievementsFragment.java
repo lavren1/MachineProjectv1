@@ -39,6 +39,7 @@ public class AchievementsFragment extends Fragment {
     private RecyclerView rvAchievements;
     private FloatingActionButton fabAddAchievement;
     EditText etAchieveTitle, etAchieveDescription;
+    private TextView tvAchievementsBlankState;
 
     @Nullable
     @Override
@@ -51,6 +52,8 @@ public class AchievementsFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance();
         mFirebaseDB = FirebaseDatabase.getInstance().getReference("activity_view_achievements");
 
+        tvAchievementsBlankState = (TextView) view.findViewById(R.id.tv_achievements_blank_state);
+        
         rvAchievements = view.findViewById(R.id.self_achievements);
         rvAchievements.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext()));
 
@@ -82,6 +85,22 @@ public class AchievementsFragment extends Fragment {
             }
         };
         rvAchievements.setAdapter(achvmntAdapter);
+        
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.hasChildren()) {
+                    tvAchievementsBlankState.setText("You don't have any achievements yet, click on the bottom right button or work towards your current goals!");
+                } else {
+                    tvAchievementsBlankState.setText("");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         fabAddAchievement.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -71,7 +71,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         rvGoals.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext()));
 
         fabAddGoal = view.findViewById(R.id.fab_add_goal);
-        fabAddGoal.setImageResource(R.drawable.icon);
+        fabAddGoal.setImageResource(R.drawable.addicon);
         fabAddGoal.setOnClickListener(this);
 
 

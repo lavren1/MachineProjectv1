@@ -43,7 +43,7 @@ public class AchievementHolder extends ViewHolder {
     public void setDateAchieved(long ts){
         ts = ts * -1;
         String time = getTimeAgo(ts);
-        tvAchievementDateTime.setText(time);
+        tvAchievementDateTime.setText("Achieved "+time);
     }
 
     public void setTimestamp (Timestamp ts){

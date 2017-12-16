@@ -82,7 +82,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
             @Override
             protected void populateViewHolder(final GoalHolder viewHolder, Goal model, int position) {
                 viewHolder.setDesc(model.getDescription());
-                viewHolder.setTimestamp(model.getTimestamp());
+                viewHolder.setTimeAgo(model.getTimestamps());
                 final String goalId = model.getGoalId();
                 final Goal modelCopy = model;
                 final String goalDesc = model.getDescription();

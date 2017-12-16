@@ -28,6 +28,7 @@
         android:textSize="20sp"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:maxLength="16"
         android:layout_centerInParent="true"/>
 
     <EditText

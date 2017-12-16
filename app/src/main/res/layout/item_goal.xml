@@ -42,20 +42,14 @@
 
                 <TextView
                     android:id="@+id/tv_goal_options"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="19sp"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="50dp"
+                    android:gravity="right"
+                    android:textSize="20sp"
                     android:text="&#8942;"
-                    android:textAppearance="?android:textAppearanceLarge" />
-            </LinearLayout>
+                    android:layout_marginRight="5dp"
+                    android:textAppearance="?android:textAppearanceLarge"/>
 
-            <LinearLayout
-                android:id="@+id/hr"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#b2b2b2">
             </LinearLayout>
 
             <TextView
@@ -69,9 +63,17 @@
                 android:layout_marginBottom="5dp"/>
 
             <LinearLayout
+                android:id="@+id/hr"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#b2b2b2">
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
                 <Button
                     android:id="@+id/btn_achieve_goal"

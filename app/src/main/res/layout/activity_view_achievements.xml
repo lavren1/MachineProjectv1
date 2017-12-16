@@ -8,6 +8,15 @@
     android:background="#f4f4f4"
     android:id="@+id/achievements">
 
+    <TextView
+        android:id="@+id/tv_achievements_blank_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textColor="#d68110"
+        android:textSize="20sp"/>
+    
     <android.support.v7.widget.RecyclerView
         android:id="@+id/self_achievements"
         android:layout_width="match_parent"

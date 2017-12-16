@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,18 +47,20 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
     private DatabaseReference mFirebaseDB;
     private RecyclerView rvGoals;
     private FloatingActionButton fabAddGoal;
+    private TextView tvGoalsBlankState;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.activity_view_goals, container, false);
 
-
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();
         mFirebaseDB = FirebaseDatabase.getInstance().getReference();
 
+        tvGoalsBlankState = (TextView) view.findViewById(R.id.tv_goals_blank_state);
+        
         if(mAuth.getCurrentUser() == null){ //no user logged in
             startActivity(new Intent(getContext().getApplicationContext(), LoginActivity.class));
         }
@@ -107,6 +110,22 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
             };
         };
         rvGoals.setAdapter(adapter);
+        
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.hasChildren()) {
+                    tvGoalsBlankState.setText("You don't have any goals yet, click on the bottom right button and get started!");
+                } else {
+                    tvGoalsBlankState.setText("");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         return view;
     }

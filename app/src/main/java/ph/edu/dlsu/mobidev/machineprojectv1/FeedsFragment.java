@@ -40,6 +40,7 @@ public class FeedsFragment extends Fragment {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mFirebaseDB;
     private RecyclerView rvFeed;
+    private TextView tvFeedBlankState;
 
     @Nullable
     @Override
@@ -51,6 +52,8 @@ public class FeedsFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance();
         mFirebaseDB = FirebaseDatabase.getInstance().getReference("activity_view_achievements");
 
+        tvFeedBlankState = (TextView) view.findViewById(R.id.tv_feed_blank_state);
+        
         rvFeed = (RecyclerView) view.findViewById(R.id.world_feed);
         rvFeed.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext()));
 
@@ -101,6 +104,22 @@ public class FeedsFragment extends Fragment {
         };
         rvFeed.setAdapter(feedAdapter);
 
+        allAchRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.hasChildren()){
+                    tvFeedBlankState.setText("There hasn't been any achievements yet, work fast and be the first!");
+                } else {
+                    tvFeedBlankState.setText("");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        
         return view;
     }
 

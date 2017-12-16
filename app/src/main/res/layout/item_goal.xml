@@ -24,14 +24,6 @@
             android:padding="10dp">
 
             <TextView
-                android:id="@+id/tv_goal_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Title"
-                android:textSize="28dp"
-                android:textColor="#000000"/>
-
-            <TextView
                 android:id="@+id/tv_goal_ts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

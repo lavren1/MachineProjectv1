@@ -15,7 +15,6 @@ import java.text.SimpleDateFormat;
  */
 
 public class AchievementHolder extends ViewHolder {
-    private final TextView tvAchievementTitle;
     private final TextView tvAchievementDesc;
     private final TextView tvAchievementDateTime;
     public final Button btnDeleteAchievement;
@@ -25,7 +24,6 @@ public class AchievementHolder extends ViewHolder {
     public AchievementHolder(View itemView) {
         super(itemView);
 
-        tvAchievementTitle = itemView.findViewById(R.id.tv_achievement_title);
         tvAchievementDesc = itemView.findViewById(R.id.tv_achievement_desc);
         tvAchievementDateTime = itemView.findViewById(R.id.tv_achievement_ts);
         btnDeleteAchievement = itemView.findViewById(R.id.btn_delete_achievement);
@@ -33,9 +31,6 @@ public class AchievementHolder extends ViewHolder {
         tvAchievementMehs = itemView.findViewById(R.id.tv_ach_meh_count);
     }
 
-    public void setTitle (String t){
-        tvAchievementTitle.setText(t);
-    }
 
     public void setDesc (String t){
         tvAchievementDesc.setText(t);

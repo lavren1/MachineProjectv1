@@ -24,11 +24,10 @@ public class AddAchievementDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
                         Dialog f = (Dialog) dialog;
-                        EditText aTitle, aDesc;
-                        aTitle = f.findViewById(R.id.form_achTitle);
+                        EditText aDesc;
                         aDesc = f.findViewById(R.id.form_achDesc);
 
-                        ((HomeActivity)getActivity()).createAchievement(aTitle, aDesc);
+                        ((HomeActivity)getActivity()).createAchievement(aDesc);
                         dialog.dismiss();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

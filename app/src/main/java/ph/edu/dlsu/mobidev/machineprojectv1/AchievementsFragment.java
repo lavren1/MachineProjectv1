@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by Nikko on 11/11/2017.
@@ -58,10 +59,9 @@ public class AchievementsFragment extends Fragment {
         rvAchievements = view.findViewById(R.id.self_achievements);
         rvAchievements.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext()));
 
-        etAchieveTitle = (EditText) view.findViewById(R.id.form_achTitle);
         etAchieveDescription = (EditText) view.findViewById(R.id.form_achDesc);
         fabAddAchievement = (FloatingActionButton) view.findViewById(R.id.fab_add_achievement);
-        fabAddAchievement.setImageResource(R.drawable.ic_add_black_24dp);
+        fabAddAchievement.setImageResource(R.drawable.icon);
 
         //firebase recycler view
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("activity_view_achievements");
@@ -69,7 +69,6 @@ public class AchievementsFragment extends Fragment {
                 (Achievement.class, R.layout.item_achievement, AchievementHolder.class, ref.orderByChild("timestamps")){
             @Override
             protected void populateViewHolder(AchievementHolder viewHolder, Achievement model, int position) {
-                viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDescription());
                 viewHolder.setTimestamp(model.getTimestamp());
                 viewHolder.setPats(model.getPatCount());

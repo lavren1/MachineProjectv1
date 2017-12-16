@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +66,6 @@ public class FeedsFragment extends Fragment {
             @Override
             protected void populateViewHolder(final FeedHolder viewHolder, Achievement model, int position) {
                 viewHolder.setOwner(model.getUsername());
-                viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDescription());
                 viewHolder.setTimestamp(model.getTimestamp());
                 viewHolder.setPat(model.getPatCount());

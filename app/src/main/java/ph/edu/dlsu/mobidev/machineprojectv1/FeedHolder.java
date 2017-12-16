@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 public class FeedHolder extends RecyclerView.ViewHolder {
 
     private final TextView tvFeedAchievementOwner;
-    private final TextView tvFeedAchievementTitle;
     private final TextView tvFeedAchievementDesc;
     private final TextView tvFeedAchievementDateTime;
     public final TextView tvPatCount;
@@ -29,7 +28,6 @@ public class FeedHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         tvFeedAchievementOwner = itemView.findViewById(R.id.tv_feedAchievement_owner);
-        tvFeedAchievementTitle = itemView.findViewById(R.id.tv_feedAchievement_title);
         tvFeedAchievementDesc = itemView.findViewById(R.id.tv_feedAchievement_desc);
         tvFeedAchievementDateTime = itemView.findViewById(R.id.tv_feedAchievement_ts);
         tvPatCount = itemView.findViewById(R.id.tv_pat_count);
@@ -39,10 +37,6 @@ public class FeedHolder extends RecyclerView.ViewHolder {
     }
 
     public void setOwner (String t) { tvFeedAchievementOwner.setText(t); }
-
-    public void setTitle (String t){
-        tvFeedAchievementTitle.setText(t);
-    }
 
     public void setDesc (String t){
         tvFeedAchievementDesc.setText(t);

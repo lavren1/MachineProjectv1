@@ -102,22 +102,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         viewPager.setAdapter(adapter);
     }
     
-    public void createAchievement(EditText aTitle, EditText aDesc){
+    public void createAchievement(EditText aDesc){
 
-        EditText etAchieveTitle = aTitle;
         EditText etAchieveDescription = aDesc;
 
         FirebaseUser user = mAuth.getCurrentUser();
-        final String title = etAchieveTitle.getText().toString();
         final String description = etAchieveDescription.getText().toString();
         final ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp = new ph.edu.dlsu.mobidev.machineprojectv1.Timestamp(System.currentTimeMillis());
 
         FirebaseDatabase ref = FirebaseDatabase.getInstance();
         DatabaseReference userRef = ref.getReference("users").child(user.getUid()).child("username");
 
-        if(title.isEmpty()){
-            etAchieveTitle.setError("Title is required");
-            etAchieveTitle.requestFocus();
+        if(description.isEmpty()){
+            etAchieveDescription.setError("Title is required");
+            etAchieveDescription.requestFocus();
             return;
         }
         userRef.addValueEventListener(new ValueEventListener() {
@@ -136,7 +134,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                 //gets the unique generated ID of the achievement
                 String achievementKey = newAchievementsRef.getKey();
-                Achievement achievement = new Achievement(title, description, timestamp, username, achievementKey);
+                Achievement achievement = new Achievement(description, timestamp, username, achievementKey);
                 achievement.setTimestamps(-1 * new Date().getTime());
                 achievement.setUsernameKey(user.getUid());
                 Map<String, Object> achievementValues = achievement.toMap();

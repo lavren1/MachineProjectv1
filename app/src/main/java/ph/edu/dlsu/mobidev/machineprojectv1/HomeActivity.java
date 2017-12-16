@@ -81,13 +81,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v){
         switch(v.getId()){
-            /*
-            case R.id.btn_log_out:
-                mAuth.signOut();
-                finish();
-                startActivity(new Intent(this, LoginActivity.class));
-                break;
-                */
             case R.id.btn_delete_all:
                 deleteAllData();
         }
@@ -126,7 +119,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                 //makes the activity_view_achievements child directly under the root
                 FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-                DatabaseReference achievementsRef = mDatabase.getReference().child("activity_view_achievements");
+                DatabaseReference achievementsRef = mDatabase.getReference().child("achievements");
                 //instantiates an achievement with an ID via push
                 DatabaseReference newAchievementsRef = achievementsRef.push();
 
@@ -142,7 +135,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 newAchievementsRef.setValue(achievementValues);
 
                 //under users naman to
-                mDatabase.getReference().child("users").child(user.getUid()).child("activity_view_achievements").child(achievementKey).setValue(achievement);
+                mDatabase.getReference().child("users").child(user.getUid()).child("achievements").child(achievementKey).setValue(achievement);
 
                 //Toast.makeText(getApplicationContext(), "Achievement Added!", Toast.LENGTH_SHORT).show();
                 showSnackbar("Achievement Added!");

@@ -54,7 +54,7 @@ public class FeedsFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();
-        mFirebaseDB = FirebaseDatabase.getInstance().getReference("activity_view_achievements");
+        mFirebaseDB = FirebaseDatabase.getInstance().getReference("achievements");
 
         tvFeedBlankState = (TextView) view.findViewById(R.id.tv_feed_blank_state);
         
@@ -65,14 +65,14 @@ public class FeedsFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
 
         //firebase recycler view
-        DatabaseReference allAchRef = FirebaseDatabase.getInstance().getReference("activity_view_achievements");
+        DatabaseReference allAchRef = FirebaseDatabase.getInstance().getReference("achievements");
         FirebaseRecyclerAdapter<Achievement, FeedHolder> feedAdapter = new FirebaseRecyclerAdapter<Achievement, FeedHolder>
                 (Achievement.class, R.layout.item_feed, FeedHolder.class, allAchRef.orderByChild("timestamps")){
             @Override
             protected void populateViewHolder(final FeedHolder viewHolder, Achievement model, int position) {
                 viewHolder.setOwner(model.getUsername());
                 viewHolder.setDesc(model.getDescription());
-                viewHolder.setTimestamp(model.getTimestamp());
+                viewHolder.setTimeAgo(model.getTimestamps());
                 viewHolder.setPat(model.getPatCount());
                 viewHolder.setMeh(model.getMehCount());
                 final DatabaseReference ref = getRef(position);
@@ -137,7 +137,7 @@ public class FeedsFragment extends Fragment {
                 Achievement a = mutableData.getValue(Achievement.class);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 DatabaseReference userAchRef = FirebaseDatabase.getInstance().getReference()
-                        .child("users").child(a.usernameKey).child("activity_view_achievements")
+                        .child("users").child(a.usernameKey).child("achievements")
                         .child(achievementRef.getKey());
                 Map<String, Object> achievementUpdates = new HashMap<>();
                 int patcount, mehcount;
@@ -185,7 +185,7 @@ public class FeedsFragment extends Fragment {
                 Achievement a = mutableData.getValue(Achievement.class);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 DatabaseReference userAchRef = FirebaseDatabase.getInstance().getReference()
-                        .child("users").child(a.usernameKey).child("activity_view_achievements")
+                        .child("users").child(a.usernameKey).child("achievements")
                         .child(achievementRef.getKey());
                 Map<String, Object> achievementUpdates = new HashMap<>();
                 int patcount, mehcount;

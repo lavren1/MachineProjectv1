@@ -23,10 +23,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by francis omangayon on 10/26/2017.
@@ -108,6 +115,12 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         progressBar.setVisibility(View.VISIBLE);
 
+        /*if(!checkUniqueUser(username, email, password)){
+            signup_username.setError("Username is already taken");
+            signup_username.requestFocus();
+            return;
+        }*/
+
         mAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -126,9 +139,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                             }
                         }
                     });
-
-
-
     }
 
     private void createNewUser(FirebaseUser userFromRegistration) {
@@ -139,7 +149,32 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         User user = new User(username, email);
 
         mDatabase.child("users").child(userId).setValue(user);
+        //
     }
+/*    private boolean checkUniqueUser(final String username, final String email, final String password){
+        final boolean[] result = {true};
+        mDatabase.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                UserList userList = mutableData.getValue(UserList.class);
+                if(userList.users.containsKey(username)){
+                    result[0] = false;
+                    return Transaction.success(mutableData);
+                }
+                else{
+                    userList.users.put(username, true);
+                }
+                mutableData.setValue(userList);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+            }
+        });
+        return result[0];
+    }*/
 
     @Override
     public void onClick(View v){

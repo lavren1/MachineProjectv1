@@ -54,7 +54,7 @@ public class AchievementsFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();
-        mFirebaseDB = FirebaseDatabase.getInstance().getReference("activity_view_achievements");
+        mFirebaseDB = FirebaseDatabase.getInstance().getReference("achievements");
 
         tvAchievementsBlankState = (TextView) view.findViewById(R.id.tv_achievements_blank_state);
         
@@ -66,13 +66,16 @@ public class AchievementsFragment extends Fragment {
         fabAddAchievement.setImageResource(R.drawable.addicon);
 
         //firebase recycler view
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("activity_view_achievements");
-        FirebaseRecyclerAdapter<Achievement, AchievementHolder>achvmntAdapter = new FirebaseRecyclerAdapter<Achievement, AchievementHolder>
-                (Achievement.class, R.layout.item_achievement, AchievementHolder.class, ref.orderByChild("timestamps")){
+        DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReference("users").child(user.getUid()).child("achievements");
+        FirebaseRecyclerAdapter<Achievement, AchievementHolder>achvmntAdapter
+                = new FirebaseRecyclerAdapter<Achievement, AchievementHolder>
+                (Achievement.class, R.layout.item_achievement,
+                        AchievementHolder.class, ref.orderByChild("timestamps")){
             @Override
             protected void populateViewHolder(AchievementHolder viewHolder, Achievement model, int position) {
                 viewHolder.setDesc(model.getDescription());
-                viewHolder.setTimestamp(model.getTimestamp());
+                viewHolder.setDateAchieved(model.getTimestamps());
                 viewHolder.setPats(model.getPatCount());
                 viewHolder.setMehs(model.getMehCount());
                 final String achievementID = getRef(position).getKey();
@@ -133,9 +136,11 @@ public class AchievementsFragment extends Fragment {
     protected void deleteAchievement(String achievementID){
         FirebaseUser cUser = mAuth.getCurrentUser();
         FirebaseDatabase ref = FirebaseDatabase.getInstance();
-        DatabaseReference achvmntRef = FirebaseDatabase.getInstance().getReference("activity_view_achievements").child(achievementID);
+        DatabaseReference achvmntRef = FirebaseDatabase.getInstance()
+                .getReference("achievements").child(achievementID);
         DatabaseReference userAchvmntRef = FirebaseDatabase.getInstance()
-                .getReference("users").child(cUser.getUid()).child("activity_view_achievements").child(achievementID);
+                .getReference("users").child(cUser.getUid())
+                .child("achievements").child(achievementID);
         achvmntRef.removeValue();
         userAchvmntRef.removeValue();
         

@@ -7,7 +7,6 @@
 
     <item
         android:id="@+id/delete_goal"
-        android:title="Delete" />
-
+        android:title="Delete"/>
 
 </menu>

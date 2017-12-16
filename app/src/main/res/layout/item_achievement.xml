@@ -43,21 +43,12 @@
 
                 <TextView
                     android:id="@+id/tv_achievement_options"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="19sp"
-                    android:layout_marginLeft="50dp"
-                    android:textAlignment="textEnd"
+                    android:gravity="right"
+                    android:textSize="20sp"
                     android:text="&#8942;"
-                    android:textAppearance="?android:textAppearanceLarge" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/hr"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#b2b2b2">
+                    android:layout_marginRight="5dp"/>
             </LinearLayout>
 
             <TextView
@@ -71,16 +62,27 @@
                 android:layout_marginBottom="5dp"/>
 
             <LinearLayout
+                android:id="@+id/hr"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="1dp"
+                android:background="#b2b2b2">
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7.5dp">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_ach_pat">
+
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:src="@drawable/crap" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -97,8 +99,8 @@
                     android:layout_marginLeft="20dp">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:src="@drawable/smolermeh" />
 
                     <TextView

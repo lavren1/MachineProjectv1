@@ -15,8 +15,9 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:textColor="#d68110"
-        android:textSize="20sp"/>
-    
+        android:textSize="20sp"
+        android:layout_margin="30dp"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/self_achievements"
         android:layout_width="match_parent"

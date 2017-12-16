@@ -25,23 +25,29 @@
             android:padding="10dp"
             android:background="#fff">
 
-            <TextView
-                android:id="@+id/tv_feedAchievement_owner"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#ec5456"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_feedAchievement_ts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Timestamp"
-                android:textSize="12sp"
-                android:textColor="#323232"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="5dp"/>
+                <TextView
+                    android:id="@+id/tv_feedAchievement_owner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ec5456"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="-2dp"/>
+
+                <TextView
+                    android:id="@+id/tv_feedAchievement_ts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Timestamp"
+                    android:textSize="12sp"
+                    android:textColor="#323232"
+                    android:layout_marginTop="0dp"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv_feedAchievement_desc"
@@ -61,9 +67,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:layout_gravity="right">
 
                 <LinearLayout
                     android:layout_width="wrap_content"

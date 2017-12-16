@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.TextView;
 
@@ -43,6 +44,7 @@ public class FeedsFragment extends Fragment {
     private DatabaseReference mFirebaseDB;
     private RecyclerView rvFeed;
     private TextView tvFeedBlankState;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -59,6 +61,9 @@ public class FeedsFragment extends Fragment {
         rvFeed = (RecyclerView) view.findViewById(R.id.world_feed);
         rvFeed.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext()));
 
+        progressBar = view.findViewById(R.id.feed_progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
+
         //firebase recycler view
         DatabaseReference allAchRef = FirebaseDatabase.getInstance().getReference("activity_view_achievements");
         FirebaseRecyclerAdapter<Achievement, FeedHolder> feedAdapter = new FirebaseRecyclerAdapter<Achievement, FeedHolder>
@@ -66,7 +71,6 @@ public class FeedsFragment extends Fragment {
             @Override
             protected void populateViewHolder(final FeedHolder viewHolder, Achievement model, int position) {
                 viewHolder.setOwner(model.getUsername());
-                viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDescription());
                 viewHolder.setTimestamp(model.getTimestamp());
                 viewHolder.setPat(model.getPatCount());
@@ -105,6 +109,7 @@ public class FeedsFragment extends Fragment {
             }
         };
         rvFeed.setAdapter(feedAdapter);
+        progressBar.setVisibility(View.GONE);
 
         allAchRef.addValueEventListener(new ValueEventListener() {
             @Override

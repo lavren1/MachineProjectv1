@@ -24,24 +24,34 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
-                android:id="@+id/tv_achievement_title"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Title"
-                android:textSize="28dp"
-                android:textColor="#000000"/>
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
 
-            <TextView
-                android:id="@+id/tv_achievement_ts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="Timestamp"
-                android:textSize="12dp"
-                android:textColor="#323232"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="5dp"/>
+                <TextView
+                    android:id="@+id/tv_achievement_ts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="Timestamp"
+                    android:textSize="12dp"
+                    android:textColor="#323232"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="5dp"/>
+
+                <TextView
+                    android:id="@+id/tv_achievement_options"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="19sp"
+                    android:layout_marginLeft="50dp"
+                    android:textAlignment="textEnd"
+                    android:text="&#8942;"
+                    android:textAppearance="?android:textAppearanceLarge" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/hr"
@@ -100,16 +110,6 @@
                         android:layout_marginLeft="5dp"/>
                 </LinearLayout>
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_delete_achievement"
-                android:layout_width="70dp"
-                android:layout_height="30dp"
-                android:text="Delete"
-                android:textColor="#fff"
-                android:layout_marginTop="5dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:background="@drawable/button_bg_stroke"/>
 
         </LinearLayout>
 

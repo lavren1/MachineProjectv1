@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Achievement {
-    String title;
     String description;
     ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp;
     String username;
@@ -36,23 +35,20 @@ public class Achievement {
         this.username = username;
     }
 
-    public Achievement(String title, String description, ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp, String username, String achievement_id) {
-        this.title = title;
+    public Achievement(String description, ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp, String username, String achievement_id) {
         this.description = description;
         this.timestamp = timestamp;
         this.username = username;
         this.achievement_id = achievement_id;
     }
 
-    public Achievement(String title, String description, ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp, String username) {
-        this.title = title;
+    public Achievement(String description, ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp, String username) {
         this.description = description;
         this.timestamp = timestamp;
         this.username = username;
     }
 
-    public Achievement(String title, String description){
-        this.title = title;
+    public Achievement(String description){
         this.description = description;
     }
 
@@ -61,7 +57,6 @@ public class Achievement {
     @Exclude
     public Map<String, Object> toMap(){
         HashMap<String, Object> result = new HashMap<>();
-        result.put("title", title);
         result.put("description", description);
         result.put("timestamp", timestamp);
         result.put("timestamps", timestamps);
@@ -73,14 +68,6 @@ public class Achievement {
         result.put("usernameKey", usernameKey);
 
         return result;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getDescription() {

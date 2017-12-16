@@ -8,16 +8,10 @@
     android:padding="10dp">
 
     <EditText
-        android:id="@+id/form_achTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Title"
-        android:maxLength="30"/>
-    <EditText
         android:id="@+id/form_achDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Description"
+        android:hint="Achievement Description"
         android:maxLength="140"/>
 
 </LinearLayout>

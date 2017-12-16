@@ -13,9 +13,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -69,7 +71,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         rvGoals.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext()));
 
         fabAddGoal = view.findViewById(R.id.fab_add_goal);
-        fabAddGoal.setImageResource(R.drawable.ic_add_black_24dp);
+        fabAddGoal.setImageResource(R.drawable.icon);
         fabAddGoal.setOnClickListener(this);
 
 
@@ -79,31 +81,39 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                 (Goal.class, R.layout.item_goal, GoalHolder.class, ref.orderByChild("timestamps")){
 
             @Override
-            protected void populateViewHolder(GoalHolder viewHolder, Goal model, int position) {
-                viewHolder.setTitle(model.getTitle());
+            protected void populateViewHolder(final GoalHolder viewHolder, Goal model, int position) {
                 viewHolder.setDesc(model.getDescription());
                 viewHolder.setTimestamp(model.getTimestamp());
                 final String goalId = model.getGoalId();
                 final Goal modelCopy = model;
 
-                viewHolder.btnEditGoal.setOnClickListener(new View.OnClickListener() {
+                viewHolder.tvGoalOptions.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showEditGoalDialog(goalId);
+                        PopupMenu popupMenu = new PopupMenu(getActivity(), viewHolder.tvGoalOptions);
+                        popupMenu.inflate(R.menu.goal_options_menu);
+                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch(item.getItemId()){
+                                    case R.id.edit_goal:
+                                        showEditGoalDialog(goalId);
+                                        break;
+                                    case R.id.delete_goal:
+                                        confirmDelete(goalId);
+                                        break;
+                                }
+                                return false;
+                            }
+                        });
+                        popupMenu.show();
                     }
                 });
-                viewHolder.btnDeleteGoal.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        confirmDelete(goalId);
-                        //deleteGoal(goalId);
-                    }
-                });
+
                 viewHolder.btnAchieveGoal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         confirmAchieve(modelCopy);
-                        //achieveGoal(modelCopy);
                     }
 
                 });
@@ -146,15 +156,13 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                 .setPositiveButton("Edit Goal", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Dialog f = (Dialog) dialog;
-                        EditText title, description;
+                        EditText description;
 
-                        title = f.findViewById(R.id.form_goal_title);
                         description  = f.findViewById(R.id.form_goal_desc);
 
-                        String goalTitle = title.getText().toString().trim();
                         String goalDesc = description.getText().toString().trim();
 
-                        editGoal(goalTitle, goalDesc, goalId);
+                        editGoal(goalDesc, goalId);
 
 
                     }
@@ -176,17 +184,13 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                 .setPositiveButton("Add Goal", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Dialog f = (Dialog) dialog;
-                        EditText title, description;
+                        EditText description;
 
-                        title = f.findViewById(R.id.form_goal_title);
                         description  = f.findViewById(R.id.form_goal_desc);
 
-                        String goalTitle = title.getText().toString().trim();
                         String goalDesc = description.getText().toString().trim();
 
-                        createGoal(goalTitle, goalDesc);
-
-
+                        createGoal(goalDesc);
                     }
                 })
                 .setNegativeButton("Cancel",  new DialogInterface.OnClickListener() {
@@ -198,7 +202,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         builder.create().show();
     }
 
-    public void saveGoal(FirebaseUser user, final String title, final String desc){
+    public void saveGoal(FirebaseUser user, final String desc){
         final ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp
                 = new ph.edu.dlsu.mobidev.machineprojectv1.Timestamp(System.currentTimeMillis());
 
@@ -215,7 +219,7 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
 
                 DatabaseReference userGoalRef = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("goals").push();
                 String goalKey = userGoalRef.getKey();
-                Goal goal = new Goal(title, desc, timestamp, username, goalKey);
+                Goal goal = new Goal(desc, timestamp, username, goalKey);
                 goal.setTimestamps(-1 * new Date().getTime());
                 userGoalRef.setValue(goal);
 
@@ -235,39 +239,31 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
     }
     public void showSnackbar(String message){
         View view = getActivity().findViewById(android.R.id.content);
-        /*
-        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
-        snackbar.setActionTextColor(Color.WHITE);
-        View snackView = snackbar.getView();
-        //TextView textView = snackView.findViewById(android.support.design.R.id.snackbar_text);
-        snackView.setBackgroundColor(Color.parseColor("#3F51B5"));
-        */
         Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
 
-    public void createGoal(String title, String desc){
+    public void createGoal(String desc){
 
         FirebaseUser user = mAuth.getCurrentUser();
 
-        if(title.isEmpty()){
-            Toast.makeText(getActivity(), "Title cannot be empty!", Toast.LENGTH_SHORT).show();
+        if(desc.isEmpty()){
+            Toast.makeText(getActivity(), "Description cannot be empty!", Toast.LENGTH_SHORT).show();
             showAddGoalDialog();
         }
         else
-        saveGoal(user, title, desc);
+        saveGoal(user, desc);
 
     }
 
-    public void editGoal(String title, String desc, String goalId){
-        if(title.isEmpty()){
-            Toast.makeText(getActivity(), "Title cannot be empty!", Toast.LENGTH_SHORT).show();
+    public void editGoal(String desc, String goalId){
+        if(desc.isEmpty()){
+            Toast.makeText(getActivity(), "Description cannot be empty!", Toast.LENGTH_SHORT).show();
             showEditGoalDialog(goalId);
         }
         else{
         FirebaseUser user = mAuth.getCurrentUser();
         Map<String, Object> goalUpdates = new HashMap<>();
         goalUpdates.put("description", desc);
-        goalUpdates.put("title", title);
         DatabaseReference goalRef = FirebaseDatabase.getInstance().getReference()
                 .child("users").child(user.getUid()).child("goals").child(goalId);
         goalRef.updateChildren(goalUpdates);
@@ -289,7 +285,6 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
         ph.edu.dlsu.mobidev.machineprojectv1.Timestamp ts = new ph.edu.dlsu.mobidev.machineprojectv1.Timestamp(System.currentTimeMillis());
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        newModel.setTitle(model.getTitle());
         newModel.setDescription(model.getDescription());
         newModel.setTimestamp(ts);
         newModel.setUsername(model.getUsername());

@@ -178,8 +178,6 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                         String goalDesc = description.getText().toString().trim();
 
                         createGoal(goalDesc);
-
-
                     }
                 })
                 .setNegativeButton("Cancel",  new DialogInterface.OnClickListener() {

@@ -13,9 +13,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -79,24 +81,35 @@ public class GoalsFragment extends Fragment implements View.OnClickListener{
                 (Goal.class, R.layout.item_goal, GoalHolder.class, ref.orderByChild("timestamps")){
 
             @Override
-            protected void populateViewHolder(GoalHolder viewHolder, Goal model, int position) {
+            protected void populateViewHolder(final GoalHolder viewHolder, Goal model, int position) {
                 viewHolder.setDesc(model.getDescription());
                 viewHolder.setTimestamp(model.getTimestamp());
                 final String goalId = model.getGoalId();
                 final Goal modelCopy = model;
 
-                viewHolder.btnEditGoal.setOnClickListener(new View.OnClickListener() {
+                viewHolder.tvGoalOptions.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showEditGoalDialog(goalId);
+                        PopupMenu popupMenu = new PopupMenu(getActivity(), viewHolder.tvGoalOptions);
+                        popupMenu.inflate(R.menu.goal_options_menu);
+                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch(item.getItemId()){
+                                    case R.id.edit_goal:
+                                        showEditGoalDialog(goalId);
+                                        break;
+                                    case R.id.delete_goal:
+                                        confirmDelete(goalId);
+                                        break;
+                                }
+                                return false;
+                            }
+                        });
+                        popupMenu.show();
                     }
                 });
-                viewHolder.btnDeleteGoal.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        confirmDelete(goalId);
-                    }
-                });
+
                 viewHolder.btnAchieveGoal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

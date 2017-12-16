@@ -10,8 +10,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -47,7 +49,7 @@ public class AchievementsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
 
-        View view = inflater.inflate(R.layout.activity_view_achievements, container, false);
+        final View view = inflater.inflate(R.layout.activity_view_achievements, container, false);
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -74,14 +76,28 @@ public class AchievementsFragment extends Fragment {
                 viewHolder.setPats(model.getPatCount());
                 viewHolder.setMehs(model.getMehCount());
                 final String achievementID = getRef(position).getKey();
+                final AchievementHolder achHolder = viewHolder;
 
-                viewHolder.btnDeleteAchievement.setOnClickListener(new View.OnClickListener() {
+                viewHolder.tvAchievementOptions.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        confirmDelete(achievementID);
-                        //deleteAchievement(achievementID);
+                        PopupMenu popupMenu = new PopupMenu(getActivity(), achHolder.tvAchievementOptions);
+                        popupMenu.inflate(R.menu.ach_options_menu);
+                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch(item.getItemId()){
+                                    case R.id.delete_achievement:
+                                        confirmDelete(achievementID);
+                                        break;
+                                }
+                                return false;
+                            }
+                        });
+                        popupMenu.show();
                     }
                 });
+
             }
         };
         rvAchievements.setAdapter(achvmntAdapter);

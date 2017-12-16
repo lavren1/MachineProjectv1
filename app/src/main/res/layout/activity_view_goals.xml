@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     android:background="#f4f4f4">
 
+    <TextView
+        android:id="@+id/tv_goals_blank_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textColor="#d68110"
+        android:textSize="20sp"/>
+    
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

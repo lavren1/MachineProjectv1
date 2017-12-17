@@ -102,7 +102,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             //check if username already exists or not
                 mForUsername = FirebaseDatabase.getInstance().getReference().child("usernames");
-                mForUsername.addValueEventListener(new ValueEventListener() {
+                mForUsername.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String uname = signup_username.getText().toString().trim();

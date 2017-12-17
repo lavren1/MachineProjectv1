@@ -1,4 +1,4 @@
-package ph.edu.dlsu.mobidev.machineprojectv1;
+package ph.edu.dlsu.mobidev.patapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

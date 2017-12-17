@@ -1,4 +1,4 @@
-package ph.edu.dlsu.mobidev.machineprojectv1;
+package ph.edu.dlsu.mobidev.patapp;
 
 /**
  * Created by Noel Campos on 11/12/2017.

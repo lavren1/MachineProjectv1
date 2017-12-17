@@ -1,6 +1,4 @@
-package ph.edu.dlsu.mobidev.machineprojectv1;
-
-import java.sql.Timestamp;
+package ph.edu.dlsu.mobidev.patapp;
 
 /**
  * Created by Noel Campos on 11/12/2017.
@@ -8,7 +6,7 @@ import java.sql.Timestamp;
 
 public class Goal {
     String description;
-    ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp;
+    ph.edu.dlsu.mobidev.patapp.Timestamp timestamp;
     String username;
     String goal_id;
     long timestamps;
@@ -29,14 +27,14 @@ public class Goal {
         this.username = username;
     }
 
-    public Goal(String description, ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp, String username, String goal_id) {
+    public Goal(String description, ph.edu.dlsu.mobidev.patapp.Timestamp timestamp, String username, String goal_id) {
         this.description = description;
         this.timestamp = timestamp;
         this.username = username;
         this.goal_id = goal_id;
     }
 
-    public Goal(String description, ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp, String username) {
+    public Goal(String description, ph.edu.dlsu.mobidev.patapp.Timestamp timestamp, String username) {
         this.description = description;
         this.timestamp = timestamp;
         this.username = username;
@@ -55,11 +53,11 @@ public class Goal {
         this.description = description;
     }
 
-    public ph.edu.dlsu.mobidev.machineprojectv1.Timestamp getTimestamp() {
+    public ph.edu.dlsu.mobidev.patapp.Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(ph.edu.dlsu.mobidev.machineprojectv1.Timestamp timestamp) {
+    public void setTimestamp(ph.edu.dlsu.mobidev.patapp.Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 

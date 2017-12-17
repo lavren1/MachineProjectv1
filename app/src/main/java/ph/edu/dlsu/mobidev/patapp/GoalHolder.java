@@ -1,4 +1,4 @@
-package ph.edu.dlsu.mobidev.machineprojectv1;
+package ph.edu.dlsu.mobidev.patapp;
 
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;

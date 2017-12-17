@@ -1,6 +1,4 @@
-package ph.edu.dlsu.mobidev.machineprojectv1;
-
-import java.util.ArrayList;
+package ph.edu.dlsu.mobidev.patapp;
 
 /**
  * Created by Noel Campos on 11/10/2017.

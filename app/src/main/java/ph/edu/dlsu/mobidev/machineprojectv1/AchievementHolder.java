@@ -2,6 +2,8 @@ package ph.edu.dlsu.mobidev.machineprojectv1;
 
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.sql.Date;
@@ -18,6 +20,10 @@ public class AchievementHolder extends ViewHolder {
     public final TextView tvAchievementPats;
     public final TextView tvAchievementMehs;
     public final TextView tvAchievementOptions;
+    public final LinearLayout btnAchievementPat;
+    public final LinearLayout btnAchievementMeh;
+    public final ImageView ivAchievementPat;
+    public final ImageView ivAchievementMeh;
 
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
@@ -33,11 +39,30 @@ public class AchievementHolder extends ViewHolder {
         tvAchievementPats = itemView.findViewById(R.id.tv_ach_pat_count);
         tvAchievementMehs = itemView.findViewById(R.id.tv_ach_meh_count);
         tvAchievementOptions = itemView.findViewById(R.id.tv_achievement_options);
+        ivAchievementMeh = itemView.findViewById(R.id.achievement_meh);
+        ivAchievementPat = itemView.findViewById(R.id.achievement_pat);
+        btnAchievementPat = itemView.findViewById(R.id.btn_ach_pat);
+        btnAchievementMeh = itemView.findViewById(R.id.btn_ach_meh);
     }
 
 
     public void setDesc (String t){
         tvAchievementDesc.setText(t);
+    }
+
+    public void setReactImageResource(int i){
+        if(i == 1){
+            ivAchievementPat.setImageResource(R.drawable.crap);
+        }
+        else if(i == 2){
+            ivAchievementPat.setImageResource(R.drawable.crap_light_er);
+        }
+        else if(i == 3){
+            ivAchievementMeh.setImageResource(R.drawable.smolermeh);
+        }
+        else if(i == 4){
+            ivAchievementMeh.setImageResource(R.drawable.smolermeh_light_er);
+        }
     }
 
     public void setDateAchieved(long ts){

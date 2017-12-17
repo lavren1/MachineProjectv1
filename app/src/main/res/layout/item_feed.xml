@@ -80,7 +80,8 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/crap_light_er" />
+                        android:src="@drawable/crap_light_er"
+                        android:id="@+id/feed_pat"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -98,10 +99,11 @@
                     android:layout_marginLeft="20dp">
 
                     <ImageView
-                        android:id="@+id/react_meh"
+                        android:id="@+id/feed_meh"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/smolermeh_light_er" />
+                        android:src="@drawable/smolermeh_light_er"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"

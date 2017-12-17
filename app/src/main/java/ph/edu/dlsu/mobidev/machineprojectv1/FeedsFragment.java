@@ -80,16 +80,20 @@ public class FeedsFragment extends Fragment {
                 if(model.pats.containsKey(user.getUid())){
                     viewHolder.tvPatCount.setTextColor(Color.parseColor("#ec5f54"));
                     viewHolder.tvPatCount.setTypeface(null, Typeface.BOLD);
+                    viewHolder.setReactImageResource(1);
                 } else{
                     viewHolder.tvPatCount.setTextColor(Color.GRAY);
                     viewHolder.tvPatCount.setTypeface(null, Typeface.NORMAL);
+                    viewHolder.setReactImageResource(2);
                 }
                 if(model.mehs.containsKey(user.getUid())){
                     viewHolder.tvMehCount.setTextColor(Color.parseColor("#ec5f54"));
                     viewHolder.tvMehCount.setTypeface(null, Typeface.BOLD);
+                    viewHolder.setReactImageResource(3);
                 } else{
                     viewHolder.tvMehCount.setTextColor(Color.GRAY);
                     viewHolder.tvMehCount.setTypeface(null, Typeface.NORMAL);
+                    viewHolder.setReactImageResource(4);
                 }
 
                 viewHolder.btnPat.setOnClickListener(new View.OnClickListener() {
@@ -165,6 +169,8 @@ public class FeedsFragment extends Fragment {
                     patcount = a.patCount;
                     achievementUpdates.put("patCount", patcount);
                 }
+                achievementUpdates.put("pats", a.pats);
+                achievementUpdates.put("mehs", a.mehs);
                 userAchRef.updateChildren(achievementUpdates);
                 mutableData.setValue(a);
                 return Transaction.success(mutableData);
@@ -213,6 +219,8 @@ public class FeedsFragment extends Fragment {
                     mehcount = a.mehCount;
                     achievementUpdates.put("mehCount", mehcount);
                 }
+                achievementUpdates.put("pats", a.pats);
+                achievementUpdates.put("mehs", a.mehs);
                 userAchRef.updateChildren(achievementUpdates);
                 mutableData.setValue(a);
                 return Transaction.success(mutableData);

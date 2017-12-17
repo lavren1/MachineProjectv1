@@ -2,6 +2,7 @@ package ph.edu.dlsu.mobidev.machineprojectv1;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,8 @@ public class FeedHolder extends RecyclerView.ViewHolder {
     public final TextView tvMehCount;
     public final LinearLayout btnPat;
     public final LinearLayout btnMeh;
+    public final ImageView ivFeedPat;
+    public final ImageView ivFeedMeh;
 
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
@@ -38,6 +41,8 @@ public class FeedHolder extends RecyclerView.ViewHolder {
         tvMehCount = itemView.findViewById(R.id.tv_meh_count);
         btnPat = itemView.findViewById(R.id.btn_pat);
         btnMeh = itemView.findViewById(R.id.btn_meh);
+        ivFeedPat = itemView.findViewById(R.id.feed_pat);
+        ivFeedMeh = itemView.findViewById(R.id.feed_meh);
     }
 
     public void setTimeAgo(long ts){
@@ -58,6 +63,21 @@ public class FeedHolder extends RecyclerView.ViewHolder {
 
     public void setMeh (int i){
         tvMehCount.setText(String.valueOf(i));
+    }
+
+    public void setReactImageResource(int i){
+        if(i == 1){
+            ivFeedPat.setImageResource(R.drawable.crap);
+        }
+        else if(i == 2){
+            ivFeedPat.setImageResource(R.drawable.crap_light_er);
+        }
+        else if(i == 3){
+            ivFeedMeh.setImageResource(R.drawable.smolermeh);
+        }
+        else if(i == 4){
+            ivFeedMeh.setImageResource(R.drawable.smolermeh_light_er);
+        }
     }
 
     public void setTimestamp (java.sql.Timestamp ts){

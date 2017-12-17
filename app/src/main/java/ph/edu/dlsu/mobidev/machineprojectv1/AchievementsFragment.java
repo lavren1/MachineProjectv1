@@ -3,6 +3,7 @@ package ph.edu.dlsu.mobidev.machineprojectv1;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -29,6 +30,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Nikko on 11/11/2017.
@@ -80,6 +84,27 @@ public class AchievementsFragment extends Fragment {
                 viewHolder.setMehs(model.getMehCount());
                 final String achievementID = getRef(position).getKey();
                 final AchievementHolder achHolder = viewHolder;
+                final DatabaseReference ref = getRef(position);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                if(model.pats.containsKey(user.getUid())){
+                    viewHolder.tvAchievementPats.setTextColor(Color.parseColor("#ec5f54"));
+                    viewHolder.tvAchievementPats.setTypeface(null, Typeface.BOLD);
+                    viewHolder.setReactImageResource(1);
+                } else{
+                    viewHolder.tvAchievementPats.setTextColor(Color.GRAY);
+                    viewHolder.tvAchievementPats.setTypeface(null, Typeface.NORMAL);
+                    viewHolder.setReactImageResource(2);
+                }
+                if(model.mehs.containsKey(user.getUid())){
+                    viewHolder.tvAchievementMehs.setTextColor(Color.parseColor("#ec5f54"));
+                    viewHolder.tvAchievementMehs.setTypeface(null, Typeface.BOLD);
+                    viewHolder.setReactImageResource(3);
+                } else{
+                    viewHolder.tvAchievementMehs.setTextColor(Color.GRAY);
+                    viewHolder.tvAchievementMehs.setTypeface(null, Typeface.NORMAL);
+                    viewHolder.setReactImageResource(4);
+                }
 
                 viewHolder.tvAchievementOptions.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -101,6 +126,19 @@ public class AchievementsFragment extends Fragment {
                     }
                 });
 
+                viewHolder.btnAchievementPat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onPatClicked(ref);
+                    }
+                });
+
+                viewHolder.btnAchievementMeh.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onMehClicked(ref);
+                    }
+                });
             }
         };
         rvAchievements.setAdapter(achvmntAdapter);
@@ -170,4 +208,103 @@ public class AchievementsFragment extends Fragment {
         Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
 
+    public void onPatClicked(final DatabaseReference achievementRef){
+        achievementRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                Achievement a = mutableData.getValue(Achievement.class);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                DatabaseReference userAchRef = FirebaseDatabase.getInstance().getReference()
+                        .child("achievements")
+                        .child(achievementRef.getKey());
+                Map<String, Object> achievementUpdates = new HashMap<>();
+                int patcount, mehcount;
+                if(a == null){
+                    return Transaction.success(mutableData);
+                }
+                if(a.pats.containsKey(user.getUid())){
+                    a.patCount--;
+                    a.pats.remove(user.getUid());
+                    patcount = a.patCount;
+                    achievementUpdates.put("patCount", patcount);
+                }
+                else if(a.mehs.containsKey(user.getUid())){
+                    a.mehCount--;
+                    a.mehs.remove(user.getUid());
+                    a.patCount++;
+                    a.pats.put(user.getUid(), true);
+                    patcount = a.patCount;
+                    achievementUpdates.put("patCount", patcount);
+                    mehcount = a.mehCount;
+                    achievementUpdates.put("mehCount", mehcount);
+                }
+                else{
+                    a.patCount++;
+                    a.pats.put(user.getUid(), true);
+                    patcount = a.patCount;
+                    achievementUpdates.put("patCount", patcount);
+                }
+                achievementUpdates.put("pats", a.pats);
+                achievementUpdates.put("mehs", a.mehs);
+                userAchRef.updateChildren(achievementUpdates);
+                mutableData.setValue(a);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                //Transaction completed
+            }
+        });
+    }
+
+    public void onMehClicked(final DatabaseReference achievementRef){
+        achievementRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                Achievement a = mutableData.getValue(Achievement.class);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                DatabaseReference userAchRef = FirebaseDatabase.getInstance().getReference()
+                        .child("achievements")
+                        .child(achievementRef.getKey());
+                Map<String, Object> achievementUpdates = new HashMap<>();
+                int patcount, mehcount;
+                if(a == null){
+                    return Transaction.success(mutableData);
+                }
+                if(a.mehs.containsKey(user.getUid())){
+                    a.mehCount--;
+                    a.mehs.remove(user.getUid());
+                    mehcount = a.mehCount;
+                    achievementUpdates.put("mehCount", mehcount);
+                }
+                else if(a.pats.containsKey(user.getUid())){
+                    a.patCount--;
+                    a.pats.remove(user.getUid());
+                    a.mehCount++;
+                    a.mehs.put(user.getUid(), true);
+                    patcount = a.patCount;
+                    mehcount = a.mehCount;
+                    achievementUpdates.put("mehCount", mehcount);
+                    achievementUpdates.put("patCount", patcount);
+                }
+                else{
+                    a.mehCount++;
+                    a.mehs.put(user.getUid(), true);
+                    mehcount = a.mehCount;
+                    achievementUpdates.put("mehCount", mehcount);
+                }
+                achievementUpdates.put("pats", a.pats);
+                achievementUpdates.put("mehs", a.mehs);
+                userAchRef.updateChildren(achievementUpdates);
+                mutableData.setValue(a);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                //Transaction completed
+            }
+        });
+    }
 }

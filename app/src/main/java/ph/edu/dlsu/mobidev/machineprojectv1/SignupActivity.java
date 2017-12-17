@@ -47,6 +47,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth mAuth;
     DatabaseReference mDatabase;
     ProgressBar progressBar;
+    DatabaseReference mForUsername;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -67,8 +68,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void registerUser(){
-        String email = signup_email.getText().toString().trim();
-        String password = signup_password.getText().toString().trim();
+        final String email = signup_email.getText().toString().trim();
+        final String password = signup_password.getText().toString().trim();
         String confpass = signup_repassword.getText().toString().trim();
         final String username = signup_username.getText().toString().trim();
 
@@ -111,9 +112,32 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             signup_repassword.setError("Passwords do not match");
             signup_repassword.requestFocus();
             return;
+        } else {
+            //check if username already exists or not
+                mForUsername = FirebaseDatabase.getInstance().getReference().child("usernames");
+                mForUsername.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String uname = signup_username.getText().toString().trim();
+
+                        if(!checkIfUsernameExists(uname, dataSnapshot)){
+                            progressBar.setVisibility(View.VISIBLE);
+                            registerNewUser(email, password);
+                        } else {
+                            signup_username.setError("Username is already taken");
+                            signup_username.requestFocus();
+                            return;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
         }
 
-        progressBar.setVisibility(View.VISIBLE);
+        //progressBar.setVisibility(View.VISIBLE);
 
         /*if(!checkUniqueUser(username, email, password)){
             signup_username.setError("Username is already taken");
@@ -121,6 +145,61 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }*/
 
+        /*mAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Log.d(TAG, "create user with email: "+task.isSuccessful());
+                            progressBar.setVisibility(View.GONE);
+                            createNewUser(task.getResult().getUser());
+                            finish();
+                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                            } else{
+                            task.getException().getLocalizedMessage();
+                            Toast.makeText(getApplicationContext(), task.getException().getLocalizedMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+                            }
+                        }
+                    });*/
+    }
+
+    private void createNewUser(FirebaseUser userFromRegistration) {
+        String username = signup_username.getText().toString().trim();
+        String email = userFromRegistration.getEmail();
+        String userId = userFromRegistration.getUid();
+
+        User user = new User(username, email);
+
+        mDatabase.child("users").child(userId).setValue(user);
+        mForUsername.child(userId).setValue(username);
+        //
+    }
+
+    @Override
+    public void onClick(View v){
+        switch(v.getId()){
+            case R.id.btn_sign_up:
+                registerUser();
+                break;
+        }
+    }
+    
+    public boolean checkIfUsernameExists (String username, DataSnapshot dataSnapshot){
+
+        User user = new User();
+
+        for(DataSnapshot ds : dataSnapshot.getChildren()){
+            user.setUsername(ds.getValue(String.class));
+            if(user.getUsername().equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public void registerNewUser (String email, String password) {
         mAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -139,25 +218,5 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                             }
                         }
                     });
-    }
-
-    private void createNewUser(FirebaseUser userFromRegistration) {
-        String username = signup_username.getText().toString().trim();
-        String email = userFromRegistration.getEmail();
-        String userId = userFromRegistration.getUid();
-
-        User user = new User(username, email);
-
-        mDatabase.child("users").child(userId).setValue(user);
-        //
-    }
-
-    @Override
-    public void onClick(View v){
-        switch(v.getId()){
-            case R.id.btn_sign_up:
-                registerUser();
-                break;
-        }
     }
 }

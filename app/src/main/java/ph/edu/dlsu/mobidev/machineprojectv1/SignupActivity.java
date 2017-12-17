@@ -123,7 +123,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                         if(!checkIfUsernameExists(uname, dataSnapshot)){
                             progressBar.setVisibility(View.VISIBLE);
                             registerNewUser(email, password);
-                        } else {
+                        } else{
                             signup_username.setError("Username is already taken");
                             signup_username.requestFocus();
                             return;
@@ -137,32 +137,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 });
         }
 
-        //progressBar.setVisibility(View.VISIBLE);
-
-        /*if(!checkUniqueUser(username, email, password)){
-            signup_username.setError("Username is already taken");
-            signup_username.requestFocus();
-            return;
-        }*/
-
-        /*mAuth.getInstance().createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Log.d(TAG, "create user with email: "+task.isSuccessful());
-                            progressBar.setVisibility(View.GONE);
-                            createNewUser(task.getResult().getUser());
-                            finish();
-                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                            } else{
-                            task.getException().getLocalizedMessage();
-                            Toast.makeText(getApplicationContext(), task.getException().getLocalizedMessage(),
-                                    Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                            }
-                        }
-                    });*/
     }
 
     private void createNewUser(FirebaseUser userFromRegistration) {

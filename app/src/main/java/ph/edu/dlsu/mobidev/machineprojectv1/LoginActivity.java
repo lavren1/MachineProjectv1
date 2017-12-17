@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private Button btnSignIn;
     private EditText etEmail, etPassword;
     private TextView tvSignUp;

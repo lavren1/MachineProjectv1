@@ -10,6 +10,7 @@ public class Key {
     public Key(String key) {
         this.key = key;
     }
+
     public Key(){}
 
     public String getKey() {

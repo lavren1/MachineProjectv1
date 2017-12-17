@@ -10,9 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -38,7 +36,6 @@ public class FeedsFragment extends Fragment {
     private static final String TAG = "FeedsFragment";
 
     private FirebaseAuth mAuth;
-    Button logoutbutton;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mFirebaseDB;
     private RecyclerView rvFeed;

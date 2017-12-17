@@ -1,6 +1,5 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
 import android.widget.Button;

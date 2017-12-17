@@ -1,7 +1,6 @@
 package ph.edu.dlsu.mobidev.machineprojectv1;
 
 import android.content.DialogInterface;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
